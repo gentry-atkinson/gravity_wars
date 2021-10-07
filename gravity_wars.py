@@ -6,13 +6,16 @@ import math
 
 WIDTH, HEIGHT = 800, 800
 FPS = 60
-GRAVITY = 1
+GRAVITY = 5
 
 def draw_screen(screen, static_images, ps):
     for i in static_images:
         screen.blit(i[0], i[1])
     ps.draw(screen)
     pygame.display.update()
+
+def euc_dist (x1, y1, x2, y2):
+    return math.sqrt((x1-x2)**2 + (y1-y2)**2)
 
 class Ship:
     def __init__(self, x, y, vx, vy, icon):
@@ -30,8 +33,15 @@ class Ship:
     def get_height(self):
         return self.icon.get_height()
     def fall(self):
-        self.vx += GRAVITY/((self.x-WIDTH/2)**2)
-        self.vy += GRAVITY/((self.x-HEIGHT/2)**2)
+        dist = euc_dist(self.x, self.y, WIDTH/2, HEIGHT/2)
+        if self.x > WIDTH/2:
+            self.vx -= GRAVITY/dist
+        else:
+            self.vx += GRAVITY/dist
+        if self.y > HEIGHT/2:
+            self.vy -= GRAVITY/dist
+        else:
+            self.vy += GRAVITY/dist
 
 class Player(Ship):
     def __init__(self, x, y, vx, vy, icon):
