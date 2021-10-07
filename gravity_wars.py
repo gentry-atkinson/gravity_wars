@@ -6,7 +6,8 @@ import math
 
 WIDTH, HEIGHT = 800, 800
 FPS = 60
-GRAVITY = 5
+GRAVITY = 10
+C = 10
 
 def draw_screen(screen, static_images, ps):
     for i in static_images:
@@ -59,6 +60,15 @@ class Player(Ship):
         if keys[pygame.K_RIGHT]:
             self.vx += .1
 
+        if self.vx > C:
+            self.vx = C
+        elif self.vx < -C:
+            self.vx = -C
+        elif self.vy > C:
+            self.vy = C
+        elif self.vy < -C:
+            self.vy = -C
+
 
 if __name__ == '__main__':
 
@@ -67,10 +77,10 @@ if __name__ == '__main__':
     pygame.init()
     SCREEN = pygame.display.set_mode((WIDTH,HEIGHT))
     running = True
-    main_font = pygame.font.SysFont('comicsans', 50)
+    main_font = pygame.font.SysFont('Courier 10', 50)
 
     #Load Images
-    PLAYER_SHIP = pygame.image.load(os.path.join('assets/imgs', 'player_ship.png'))
+    PLAYER_SHIP = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship.png')), (20, 20))
     OTHER_SHIP = pygame.image.load(os.path.join('assets/imgs', 'crescent_ship.png'))
     BG = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'background.png')), (WIDTH, HEIGHT))
     PLANET = pygame.image.load(os.path.join('assets/imgs', 'planet.png'))
