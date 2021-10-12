@@ -51,6 +51,7 @@ if __name__ == '__main__':
         draw_screen(SCREEN, static_images, player_ship, projectiles)
         keys = pygame.key.get_pressed()
         player_ship.move(keys, projectiles, dt)
+        projectiles = [p for p in projectiles if not p.dead]
         for p in projectiles:
             p.move(dt)
 
