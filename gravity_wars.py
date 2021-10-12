@@ -7,10 +7,12 @@ from Ship import Ship, Player
 import GW_globals
 
 
-def draw_screen(screen, static_images, ps):
+def draw_screen(screen, static_images, ps, projectiles):
     for i in static_images:
         screen.blit(i[0], i[1])
     ps.draw(screen)
+    for i in projectiles:
+        i.draw(screen)
     pygame.display.update()
 
 if __name__ == '__main__':
@@ -35,16 +37,21 @@ if __name__ == '__main__':
     ]
 
     player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 0, 0, PLAYER_SHIP)
+    enemies = []
+    projectiles = []
 
     #Game Loop
     clock = pygame.time.Clock()
     while running:
         clock.tick(GW_globals.FPS)
+        dt = clock.get_time()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        draw_screen(SCREEN, static_images, player_ship)
+        draw_screen(SCREEN, static_images, player_ship, projectiles)
         keys = pygame.key.get_pressed()
-        player_ship.move(keys)
+        player_ship.move(keys, projectiles, dt)
+        for p in projectiles:
+            p.move(dt)
 
     print('Explosions! Pew pew pew!')

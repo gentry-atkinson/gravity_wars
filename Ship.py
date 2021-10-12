@@ -2,6 +2,7 @@ import pygame
 import GW_globals
 import math
 import GW_utils
+from Projectile import Laser
 
 def euc_dist (x1, y1, x2, y2):
     return math.sqrt((x1-x2)**2 + (y1-y2)**2)
@@ -17,7 +18,7 @@ class Ship:
         self.mask = pygame.mask.from_surface(self.icon)
     def draw(self, screen):
         #screen.blit(self.icon, (self.x, self.y))
-        #print(math.sin(self.rot) * GW_globals.THRUST)
+        #print(dt)
         GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
     def get_width(self):
         return self.icon.get_width()
@@ -37,10 +38,12 @@ class Ship:
 class Player(Ship):
     def __init__(self, x, y, vx, vy, icon):
         super().__init__(x, y, vx, vy, icon)
-    def move(self, keys):
+        self.lastShot = 0
+    def move(self, keys, projectiles, dt):
         self.fall()
-        self.x += self.vx
-        self.y += self.vy
+        self.x += self.vx * dt/1000
+        self.y += self.vy * dt/1000
+        self.lastShot += dt
         if keys[pygame.K_UP]:
             self.vy -= math.cos(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST
             self.vx -= math.sin(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST
@@ -51,6 +54,11 @@ class Player(Ship):
             self.rot += GW_globals.TURN_SPEED
         if keys[pygame.K_RIGHT]:
             self.rot -= GW_globals.TURN_SPEED
+        if keys[pygame.K_SPACE]:
+            if self.lastShot > 500:
+                self.lastShot = 0
+                projectiles.append(Laser(self.x, self.y, self.rot))
+
 
         self.rot = self.rot%360
         #self.icon = pygame.transform.rotate(self.icon, self.rot)
