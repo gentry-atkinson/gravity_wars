@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     #Load Images
     PLAYER_SHIP = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship.png')), (20, 20))
-    OTHER_SHIP = pygame.image.load(os.path.join('assets/imgs', 'crescent_ship.png'))
+    OTHER_SHIP = pygame.image.load(os.path.join('assets/imgs', 'crescent.png'))
     BG = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'background.png')), (GW_globals.WIDTH, GW_globals.HEIGHT))
     PLANET = pygame.image.load(os.path.join('assets/imgs', 'planet.png'))
     game_label = main_font.render('Gravity Wars', 1, (255, 255, 255))
