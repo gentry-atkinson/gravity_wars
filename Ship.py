@@ -44,6 +44,12 @@ class Player(Ship):
         self.fall()
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
+        if self.x > 900 or self.x < -100:
+            print('Lost in Space')
+            self.dead = True
+        elif self.y > 900 or self.y < -100:
+            print('Lost in Space')
+            self.dead = True
         self.lastShot += dt
         if keys[pygame.K_UP]:
             self.vy -= math.cos(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST
