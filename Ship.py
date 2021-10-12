@@ -16,6 +16,7 @@ class Ship:
         self.rot = 0
         self.icon = icon
         self.mask = pygame.mask.from_surface(self.icon)
+        self.dead = False
     def draw(self, screen):
         #screen.blit(self.icon, (self.x, self.y))
         #print(dt)
