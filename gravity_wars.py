@@ -3,7 +3,7 @@ import os
 import time
 import random
 import math
-from Ship import Ship, Player, Rock
+from Ship import Ship, Player, Rock, Satelite
 import GW_globals
 from Planet import Planet
 
@@ -70,6 +70,7 @@ if __name__ == '__main__':
     BG = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'background.png')), (GW_globals.WIDTH, GW_globals.HEIGHT))
     PLANET = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'planet.png')), (GW_globals.PLANET_SIZE, GW_globals.PLANET_SIZE))
     ROCK = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'rock.png')), (20, 20))
+    SAT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat.png')), (20, 20))
     game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
     static_images = [
         [BG, (0, 0)],
@@ -79,7 +80,7 @@ if __name__ == '__main__':
     player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100, PLAYER_SHIP)
     planet = Planet(PLANET)
     enemies = [
-        Rock(600, random.randint(300, 500) ,40, 200, ROCK, 0)
+        Satelite(400, 600, -150, 0, SAT, 0)
     ]
     projectiles = []
 
@@ -98,9 +99,7 @@ if __name__ == '__main__':
         enemies = [e for e in enemies if not e.dead]
         if enemies == []:
             enemies = [
-                Rock(600, random.randint(300, 500) ,40, 200, ROCK, 0),
-                Rock(550, random.randint(300, 500),40, 200, ROCK, 0),
-                Rock(500, random.randint(300, 500),40, 200, ROCK, 0)
+                Satelite(400, 600, -150, 0, SAT, 0)
             ]
             level += 1
             game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
@@ -108,10 +107,10 @@ if __name__ == '__main__':
                 [BG, (0, 0)],
                 [game_label, (GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT//40)],
             ]
+        for e in enemies:
+            e.move(projectiles, player_ship, dt)
         for p in projectiles:
             p.move(dt)
-        for e in enemies:
-            e.move(dt)
         check_collisions(player_ship, projectiles, planet, enemies)
         if player_ship.dead:
             running = False

@@ -1,0 +1,6 @@
+PLAYER_SHIP = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship.png')), (20, 20))
+OTHER_SHIP = pygame.image.load(os.path.join('assets/imgs', 'crescent.png'))
+BG = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'background.png')), (GW_globals.WIDTH, GW_globals.HEIGHT))
+PLANET = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'planet.png')), (GW_globals.PLANET_SIZE, GW_globals.PLANET_SIZE))
+ROCK = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'rock.png')), (20, 20))
+SAT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat.png')), (20, 20))

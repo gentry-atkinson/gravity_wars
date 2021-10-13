@@ -90,3 +90,17 @@ class Rock(Enemy):
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
         self.rot += 1
+
+class Satelite(Enemy):
+    def __init__(self, x, y, vx, vy, icon, rot):
+        super().__init__(x, y, vx, vy, icon, rot)
+        self.lastShot = 0
+    def move(self, projectiles, ps, dt):
+        self.fall()
+        self.x += self.vx * dt/1000
+        self.y += self.vy * dt/1000
+        self.lastShot += dt
+        if self.lastShot > 1000:
+            self.lastShot = 0
+            directionToPlayer = math.atan2((ps.y-self.y),(ps.x-self.x))
+            projectiles.append(Laser(self.x, self.y, directionToPlayer))
