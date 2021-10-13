@@ -18,7 +18,11 @@ def draw_screen(screen, static_images, ps, projectiles, planet):
     pygame.display.update()
 
 def check_collisions(ps, projectiles, planet, enemies):
-    if ps.mask.overlap(planet.mask, (int(ps.x - planet.x), int(ps.y-planet.y))) != None:
+    ship_rect = ps.icon.get_rect(center=(ps.x + ps.get_width()/2, ps.y+ps.get_height()/2))
+    planet_rect = planet.icon.get_rect(center=(planet.x+planet.get_width()/2, planet.y+planet.get_height()/2))
+    off_x = planet_rect.x - ship_rect.x
+    off_y = planet_rect.y - ship_rect.y
+    if ps.mask.overlap(planet.mask, (int(off_x), int(off_y))) != None:
         ps.dead = True
         print("Kaboom!")
 
