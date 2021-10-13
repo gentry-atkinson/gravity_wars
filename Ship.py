@@ -18,8 +18,6 @@ class Ship:
         self.mask = pygame.mask.from_surface(self.icon)
         self.dead = False
     def draw(self, screen):
-        #screen.blit(self.icon, (self.x, self.y))
-        #print(dt)
         GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
     def get_width(self):
         return self.icon.get_width()
@@ -78,3 +76,17 @@ class Player(Ship):
             self.vy = GW_globals.C
         elif self.vy < -GW_globals.C:
             self.vy = -GW_globals.C
+
+class Enemy(Ship):
+    def __init__(self, x, y, vx, vy, icon, rot):
+        super().__init__(x, y, vx, vy, icon)
+        self.rot = rot
+
+class Rock(Enemy):
+    def __init__(self, x, y, vx, vy, icon, rot):
+        super().__init__(x, y, vx, vy, icon, rot)
+    def move(self, dt):
+        self.fall()
+        self.x += self.vx * dt/1000
+        self.y += self.vy * dt/1000
+        self.rot += 1
