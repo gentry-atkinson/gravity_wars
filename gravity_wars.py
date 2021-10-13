@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     level = 1
 
-    music = pygame.mixer.music.load(os.path.join('assets/music', '8-bit6-Dirty.mp3'))
+    pygame.mixer.music.load('assets/music/8-bit6-Dirty.ogg')
     pygame.mixer.music.play(-1)
 
     #Load Images
