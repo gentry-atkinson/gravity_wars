@@ -41,18 +41,28 @@ def check_collisions(ps, projectiles, planet, enemies):
             if p.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
                 e.dead = True
                 print("Score!")
+            # off_x = e_rect.x - ship_rect.x
+            # off_y = e_rect.y - ship_rect.y
+            # if ps.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
+            #     e.dead = True
+            #     ps.dead = True
+            #     print("Bonk!")
 
 if __name__ == '__main__':
 
     #Setup and Initialize
     print('Launching Gravity Wars')
     pygame.init()
+    pygame.mixer.init()
     pygame.display.set_caption('Gravity Wars')
     SCREEN = pygame.display.set_mode((GW_globals.WIDTH,GW_globals.HEIGHT))
     running = True
     main_font = pygame.font.SysFont('Courier 10', 50)
 
     level = 1
+
+    music = pygame.mixer.music.load(os.path.join('assets/music', '8-bit6-Dirty.mp3'))
+    pygame.mixer.music.play(-1)
 
     #Load Images
     PLAYER_SHIP = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship.png')), (20, 20))
