@@ -86,6 +86,11 @@ class Enemy(Ship):
     def __init__(self, x, y, vx, vy, icon, rot):
         super().__init__(x, y, vx, vy, icon)
         self.rot = rot
+        self.death_sound = pygame.mixer.Sound('assets/sounds/high_chirp.wav')
+    def die(self):
+        self.dead = True
+        pygame.mixer.Sound.play(self.death_sound)
+
 
 class Rock(Enemy):
     def __init__(self, x, y, vx, vy, icon, rot):

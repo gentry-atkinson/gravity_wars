@@ -7,7 +7,6 @@ from Ship import Ship, Player, Rock, Satelite
 import GW_globals
 from Planet import Planet
 import Image_Loader as IL
-from Levels import lev_list
 from GW_utils import check_collisions
 
 
@@ -47,11 +46,14 @@ if __name__ == '__main__':
 
     player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100, IL.PLAYER_SHIP)
     planet = Planet(IL.PLANET)
-    enemies = lev_list[level-1]
+
     projectiles = []
+    from Levels import lev_list
+    enemies = lev_list[level-1]
 
     #Game Loop
     clock = pygame.time.Clock()
+
 
     while running:
         clock.tick(GW_globals.FPS)
