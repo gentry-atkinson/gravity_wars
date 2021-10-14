@@ -1,3 +1,7 @@
+import pygame
+import os
+import GW_globals
+
 PLAYER_SHIP = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship.png')), (20, 20))
 OTHER_SHIP = pygame.image.load(os.path.join('assets/imgs', 'crescent.png'))
 BG = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'background.png')), (GW_globals.WIDTH, GW_globals.HEIGHT))

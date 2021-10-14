@@ -6,6 +6,7 @@ import math
 from Ship import Ship, Player, Rock, Satelite
 import GW_globals
 from Planet import Planet
+import Image_Loader as IL
 
 
 def draw_screen(screen, static_images, ps, projectiles, planet, enemies):
@@ -62,25 +63,19 @@ if __name__ == '__main__':
     level = 1
 
     pygame.mixer.music.load('assets/music/8-bit6-Dirty.ogg')
-    pygame.mixer.music.play(-1)
+    #pygame.mixer.music.play(-1)
 
     #Load Images
-    PLAYER_SHIP = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship.png')), (20, 20))
-    OTHER_SHIP = pygame.image.load(os.path.join('assets/imgs', 'crescent.png'))
-    BG = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'background.png')), (GW_globals.WIDTH, GW_globals.HEIGHT))
-    PLANET = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'planet.png')), (GW_globals.PLANET_SIZE, GW_globals.PLANET_SIZE))
-    ROCK = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'rock.png')), (20, 20))
-    SAT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat.png')), (20, 20))
     game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
     static_images = [
-        [BG, (0, 0)],
+        [IL.BG, (0, 0)],
         [game_label, (GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT//40)],
     ]
 
-    player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100, PLAYER_SHIP)
-    planet = Planet(PLANET)
+    player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100, IL.PLAYER_SHIP)
+    planet = Planet(IL.PLANET)
     enemies = [
-        Satelite(400, 600, -150, 0, SAT, 0)
+        Satelite(400, 600, -150, 0, IL.SAT, 0)
     ]
     projectiles = []
 
@@ -99,12 +94,12 @@ if __name__ == '__main__':
         enemies = [e for e in enemies if not e.dead]
         if enemies == []:
             enemies = [
-                Satelite(400, 600, -150, 0, SAT, 0)
+                Satelite(400, 600, -150, 0, IL.SAT, 0)
             ]
             level += 1
             game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
             static_images = [
-                [BG, (0, 0)],
+                [IL.BG, (0, 0)],
                 [game_label, (GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT//40)],
             ]
         for e in enemies:
