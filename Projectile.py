@@ -22,11 +22,7 @@ class Projectile:
         return self.icon.get_width()
     def get_height(self):
         return self.icon.get_height()
-    def move(self, dt):
-        self.x += self.vx * dt/1000
-        self.y += self.vy * dt/1000
-        if -100 > self.x > 900 or -100 > self.y > 900:
-            self.dead = True
+
 
 class Laser(Projectile):
     def __init__(self, x, y, rot):
@@ -34,3 +30,10 @@ class Laser(Projectile):
         vx = -math.sin(rot*GW_globals.DEG_TO_RAD) * GW_globals.C
         vy = -math.cos(rot*GW_globals.DEG_TO_RAD) * GW_globals.C
         super().__init__(x, y, vx, vy, icon, rot)
+    def move(self, dt):
+        self.x += self.vx * dt/1000
+        self.y += self.vy * dt/1000
+        if self.x < 0 or self.x > GW_globals.WIDTH:
+            self.dead = True
+        elif self.y < 0 or self.y > GW_globals.HEIGHT:
+            self.dead = True

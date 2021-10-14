@@ -11,24 +11,38 @@ def blitRotateCenter(surf, image, topleft, angle):
     surf.blit(rotated_image, new_rect)
 
 def check_collisions(ps, projectiles, planet, enemies):
-    ship_rect = ps.icon.get_rect(center=(ps.x + ps.get_width()/2, ps.y+ps.get_height()/2))
-    planet_rect = planet.icon.get_rect(center=(planet.x+planet.get_width()/2, planet.y+planet.get_height()/2))
+    #Did player hit planet
+    ship_rect = ps.icon.get_rect(center=(ps.x + ps.get_width()//2, ps.y+ps.get_height()//2))
+    planet_rect = \
+        planet.icon.get_rect(center=(planet.x+planet.get_width()//2, planet.y+planet.get_height()//2))
     off_x = planet_rect.x - ship_rect.x
     off_y = planet_rect.y - ship_rect.y
     if ps.mask.overlap(planet.mask, (int(off_x), int(off_y))) != None:
         ps.dead = True
         print("Kaboom!")
+
+    #Did a bullet hit anyone
     for p in projectiles:
-        p_rect = ship_rect = p.icon.get_rect(center=(p.x + p.get_width()/2, p.y+p.get_height()/2))
+        p_rect = p.icon.get_rect(center=(p.x + p.get_width()//2, p.y+p.get_height()//2))
         off_x = ship_rect.x - p_rect.x
         off_y = ship_rect.y - p_rect.y
+
         if p.mask.overlap(ps.mask, (int(off_x), int(off_y))) != None:
             ps.dead = True
             print("Zap!")
         for e in enemies:
-            e_rect = ship_rect = ps.icon.get_rect(center=(e.x + e.get_width()/2, e.y+e.get_height()/2))
+            e_rect = e.icon.get_rect(center=(e.x + e.get_width()//2, e.y+e.get_height()//2))
             off_x = e_rect.x - p_rect.x
-            off_y = e_rect.y - p_rect.y
             if p.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
                 e.dead = True
                 print("Score!")
+
+    #Did a player crash into an enemy
+    for e in enemies:
+        e_rect = e.icon.get_rect(center=(e.x + e.get_width()//2, e.y+e.get_height()//2))
+        off_x = e_rect.x - ship_rect.x
+        off_y = e_rect.y - ship_rect.y
+        if ps.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
+            e.dead = True
+            ps.dead = True
+            print("Wrecked!")

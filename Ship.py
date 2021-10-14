@@ -60,9 +60,11 @@ class Player(Ship):
         if keys[pygame.K_RIGHT]:
             self.rot -= GW_globals.TURN_SPEED
         if keys[pygame.K_SPACE]:
+            off_x = -math.sin(self.rot*GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()//2
+            off_y = -math.cos(self.rot*GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()//2
             if self.lastShot > 500:
                 self.lastShot = 0
-                projectiles.append(Laser(self.x, self.y, self.rot))
+                projectiles.append(Laser(self.x+off_x, self.y+off_y, self.rot))
 
 
         self.rot = self.rot%360
