@@ -52,6 +52,7 @@ if __name__ == '__main__':
 
     #Game Loop
     clock = pygame.time.Clock()
+
     while running:
         clock.tick(GW_globals.FPS)
         dt = clock.get_time()

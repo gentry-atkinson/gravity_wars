@@ -38,6 +38,8 @@ class Player(Ship):
     def __init__(self, x, y, vx, vy, icon):
         super().__init__(x, y, vx, vy, icon)
         self.lastShot = 0
+        self.zap_sound = pygame.mixer.Sound('assets/sounds/low_chirp.wav')
+
     def move(self, keys, projectiles, dt):
         self.fall()
         self.x += self.vx * dt/1000
@@ -65,6 +67,7 @@ class Player(Ship):
             if self.lastShot > 500:
                 self.lastShot = 0
                 projectiles.append(Laser(self.x+off_x, self.y+off_y, self.rot))
+                pygame.mixer.Sound.play(self.zap_sound)
 
 
         self.rot = self.rot%360
