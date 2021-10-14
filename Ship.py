@@ -100,6 +100,7 @@ class Satelite(Enemy):
     def __init__(self, x, y, vx, vy, icon, rot):
         super().__init__(x, y, vx, vy, icon, rot)
         self.lastShot = 0
+        self.zap_sound = pygame.mixer.Sound('assets/sounds/high_chirp.wav')
     def move(self, projectiles, ps, dt):
         self.fall()
         self.x += self.vx * dt/1000
@@ -113,3 +114,4 @@ class Satelite(Enemy):
             off_x = -math.sin(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()//2
             off_y = -math.cos(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()//2
             projectiles.append(Laser(self.x+off_x, self.y+off_y, directionToPlayer))
+            pygame.mixer.Sound.play(self.zap_sound)
