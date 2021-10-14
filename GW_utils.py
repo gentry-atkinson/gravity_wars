@@ -34,7 +34,7 @@ def check_collisions(ps, projectiles, planet, enemies):
             off_x = e_rect.x - p_rect.x
             off_y = e_rect.y - p_rect.y
             if p.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
-                e.dead = True
+                e.die()
                 print("Score!")
 
     #Did a player crash into an enemy
@@ -43,6 +43,6 @@ def check_collisions(ps, projectiles, planet, enemies):
         off_x = e_rect.x - ship_rect.x
         off_y = e_rect.y - ship_rect.y
         if ps.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
-            e.dead = True
+            e.die()
             ps.dead = True
             print("Wrecked!")

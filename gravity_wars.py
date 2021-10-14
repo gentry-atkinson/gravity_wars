@@ -35,7 +35,7 @@ if __name__ == '__main__':
     level = 1
 
     pygame.mixer.music.load('assets/music/8-bit6-Dirty.ogg')
-    #pygame.mixer.music.play(-1)
+    pygame.mixer.music.play(-1)
 
     #Load Images
     game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
