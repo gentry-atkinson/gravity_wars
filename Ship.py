@@ -102,8 +102,10 @@ class Satelite(Enemy):
         self.lastShot += dt
         if self.lastShot > 1000:
             self.lastShot = 0
-            directionToPlayer = math.atan2(-(self.y-ps.y),(self.x-ps.x))
+            directionToPlayer = math.atan2((self.x-ps.x), (self.y - ps.y))
             directionToPlayer %= 2*math.pi
             directionToPlayer = math.degrees(directionToPlayer)
-            print(directionToPlayer)
-            projectiles.append(Laser(self.x, self.y, directionToPlayer))
+            off_x = math.sin(directionToPlayer)*self.get_width()
+            off_y = -math.cos(directionToPlayer)*self.get_height()
+            print(off_x, ' ', off_y)
+            projectiles.append(Laser(self.x+off_x, self.y-off_y, directionToPlayer))
