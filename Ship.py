@@ -85,7 +85,7 @@ class Enemy(Ship):
 class Rock(Enemy):
     def __init__(self, x, y, vx, vy, icon, rot):
         super().__init__(x, y, vx, vy, icon, rot)
-    def move(self, dt):
+    def move(self, projectiles, ps, dt):
         self.fall()
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
@@ -107,5 +107,4 @@ class Satelite(Enemy):
             directionToPlayer = math.degrees(directionToPlayer)
             off_x = -math.sin(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()//2
             off_y = -math.cos(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()//2
-            print(off_x, ' ', off_y)
             projectiles.append(Laser(self.x+off_x, self.y+off_y, directionToPlayer))

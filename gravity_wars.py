@@ -7,6 +7,7 @@ from Ship import Ship, Player, Rock, Satelite
 import GW_globals
 from Planet import Planet
 import Image_Loader as IL
+from Levels import lev_list
 
 
 def draw_screen(screen, static_images, ps, projectiles, planet, enemies):
@@ -74,9 +75,7 @@ if __name__ == '__main__':
 
     player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100, IL.PLAYER_SHIP)
     planet = Planet(IL.PLANET)
-    enemies = [
-        Satelite(400, 600, -150, 0, IL.SAT, 0)
-    ]
+    enemies = lev_list[level-1]
     projectiles = []
 
     #Game Loop
@@ -93,10 +92,8 @@ if __name__ == '__main__':
         projectiles = [p for p in projectiles if not p.dead]
         enemies = [e for e in enemies if not e.dead]
         if enemies == []:
-            enemies = [
-                Satelite(400, 600, -150, 0, IL.SAT, 0)
-            ]
             level += 1
+            enemies = lev_list[level-1]
             game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
             static_images = [
                 [IL.BG, (0, 0)],
