@@ -16,6 +16,6 @@ lev_list = [
         Rock(100, 600, 10, -100, IL.ROCK, 0)
     ],
     [
-        Satelite(400, 200, 100, 0, IL.SAT, 0)
+        Satelite(400, 200, 200, 0, IL.SAT, 0)
     ]
 ]

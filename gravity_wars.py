@@ -8,6 +8,7 @@ import GW_globals
 from Planet import Planet
 import Image_Loader as IL
 from Levels import lev_list
+from GW_utils import check_collisions
 
 
 def draw_screen(screen, static_images, ps, projectiles, planet, enemies):
@@ -43,12 +44,6 @@ def check_collisions(ps, projectiles, planet, enemies):
             if p.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
                 e.dead = True
                 print("Score!")
-            # off_x = e_rect.x - ship_rect.x
-            # off_y = e_rect.y - ship_rect.y
-            # if ps.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
-            #     e.dead = True
-            #     ps.dead = True
-            #     print("Bonk!")
 
 if __name__ == '__main__':
 
