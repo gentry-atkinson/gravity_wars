@@ -105,7 +105,7 @@ class Satelite(Enemy):
             directionToPlayer = math.atan2((self.x-ps.x), (self.y - ps.y))
             directionToPlayer %= 2*math.pi
             directionToPlayer = math.degrees(directionToPlayer)
-            off_x = math.sin(directionToPlayer)*self.get_width()
-            off_y = -math.cos(directionToPlayer)*self.get_height()
+            off_x = -math.sin(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()//2
+            off_y = -math.cos(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()//2
             print(off_x, ' ', off_y)
-            projectiles.append(Laser(self.x+off_x, self.y-off_y, directionToPlayer))
+            projectiles.append(Laser(self.x+off_x, self.y+off_y, directionToPlayer))

@@ -3,6 +3,7 @@ import GW_globals
 import pygame
 import os
 import math
+import Image_Loader as IL
 
 
 class Projectile:
@@ -29,7 +30,7 @@ class Projectile:
 
 class Laser(Projectile):
     def __init__(self, x, y, rot):
-        icon = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'shot.png')), (3, 6))
+        icon = IL.LAS
         vx = -math.sin(rot*GW_globals.DEG_TO_RAD) * GW_globals.C
         vy = -math.cos(rot*GW_globals.DEG_TO_RAD) * GW_globals.C
         super().__init__(x, y, vx, vy, icon, rot)

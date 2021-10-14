@@ -8,3 +8,4 @@ BG = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'backg
 PLANET = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'planet.png')), (GW_globals.PLANET_SIZE, GW_globals.PLANET_SIZE))
 ROCK = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'rock.png')), (20, 20))
 SAT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat.png')), (20, 20))
+LAS = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'shot.png')), (3, 6))
