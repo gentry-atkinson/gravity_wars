@@ -30,7 +30,8 @@ if __name__ == '__main__':
     pygame.display.set_caption('Gravity Wars')
     SCREEN = pygame.display.set_mode((GW_globals.WIDTH,GW_globals.HEIGHT))
     running = True
-    main_font = pygame.font.SysFont('Courier 10', 50)
+    #main_font = pygame.font.SysFont('Courier 10', 50)
+    main_font = pygame.font.Font('assets/font/Baskic8.otf', 50)
 
     level = 1
 
@@ -89,7 +90,7 @@ if __name__ == '__main__':
     death_screen = True
     pygame.mixer.music.stop()
     score_label = main_font.render(f'Final Score: {player_ship.score}', 1, (255, 255, 255))
-    game_label = main_font.render(f'You Have {}'.format('Won' if level >= len(lev_list else 'Died')), 1, (255, 255, 255))
+    game_label = main_font.render('You Have {}'.format('Won' if level >= len(lev_list) else 'Died'), 1, (255, 255, 255))
     static_images['LEVEL'][0] = game_label
     static_images['SCORE'][0] = score_label
     draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies)
