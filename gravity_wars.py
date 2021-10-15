@@ -33,7 +33,6 @@ if __name__ == '__main__':
     main_font = pygame.font.SysFont('Courier 10', 50)
 
     level = 1
-    score = 0
 
     pygame.mixer.music.load('assets/music/8-bit6-Dirty.ogg')
     pygame.mixer.music.play(-1)
@@ -84,4 +83,21 @@ if __name__ == '__main__':
         if player_ship.dead:
             running = False
 
-    print('Explosions! Pew pew pew!')
+    death_screen = True
+    pygame.mixer.music.stop()
+    score_label = main_font.render(f'Final Score: {player_ship.score}', 1, (255, 255, 255))
+    game_label = main_font.render(f'You Have Died', 1, (255, 255, 255))
+    static_images['LEVEL'][0] = game_label
+    static_images['SCORE'][0] = score_label
+    draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies)
+    pygame.time.wait(1000)
+
+    while death_screen:
+        clock.tick(GW_globals.FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                death_screen = False
+        keys = pygame.key.get_pressed()
+        if sum(keys) != 0: death_screen = False
+
+    print('Explosions! Pew pew pew! Final score: ', player_ship.score)
