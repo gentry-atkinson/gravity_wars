@@ -46,8 +46,8 @@ if __name__ == '__main__':
     score_label = main_font.render('Score: 0', 1, (255, 255, 255))
     static_images = {
         'BG': [IL.BG, (0, 0)],
-        'LEVEL': [game_label, (GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT//40)],
-        'SCORE': [score_label,(GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT - 100)]
+        'LEVEL': [game_label, (GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT//40)],
+        'SCORE': [score_label,(GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT - 100)]
     }
 
     projectiles = []
@@ -89,12 +89,25 @@ if __name__ == '__main__':
 
     death_screen = True
     pygame.mixer.music.stop()
+
+    with open('high_score.txt', 'r') as score_file:
+        high_score = int(score_file.readline().strip())
+
+    if player_ship.score > high_score:
+            high_score = player_ship.score
+            with open('high_score.txt', 'w') as score_file:
+                score_file.write(hgih_score)
+
     score_label = main_font.render(f'Final Score: {player_ship.score}', 1, (255, 255, 255))
+    high_label = main_font.render(f'High Score: {high_score}', 1, (255, 255, 255))
     game_label = main_font.render('You Have {}'.format('Won' if level >= len(lev_list) else 'Died'), 1, (255, 255, 255))
     static_images['LEVEL'][0] = game_label
     static_images['SCORE'][0] = score_label
+    static_images['HIGH'] = [high_label, (GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT * 0.7)]
     draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies)
     pygame.time.wait(500)
+
+
 
     while death_screen:
         clock.tick(GW_globals.FPS)
