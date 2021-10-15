@@ -72,6 +72,9 @@ if __name__ == '__main__':
         static_images['SCORE'][0] = score_label
         if enemies == []:
             level += 1
+            if level >= len(lev_list):
+                running = False
+                break
             enemies = lev_list[level-1]
             game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
             static_images['LEVEL'][0] = game_label
@@ -86,11 +89,11 @@ if __name__ == '__main__':
     death_screen = True
     pygame.mixer.music.stop()
     score_label = main_font.render(f'Final Score: {player_ship.score}', 1, (255, 255, 255))
-    game_label = main_font.render(f'You Have Died', 1, (255, 255, 255))
+    game_label = main_font.render(f'You Have {}'.format('Won' if level >= len(lev_list else 'Died')), 1, (255, 255, 255))
     static_images['LEVEL'][0] = game_label
     static_images['SCORE'][0] = score_label
     draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies)
-    pygame.time.wait(1000)
+    pygame.time.wait(500)
 
     while death_screen:
         clock.tick(GW_globals.FPS)
