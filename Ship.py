@@ -39,6 +39,7 @@ class Player(Ship):
         super().__init__(x, y, vx, vy, icon)
         self.lastShot = 0
         self.zap_sound = pygame.mixer.Sound('assets/sounds/low_chirp.wav')
+        self.score = 0
 
     def move(self, keys, projectiles, dt):
         self.fall()
@@ -87,9 +88,10 @@ class Enemy(Ship):
         super().__init__(x, y, vx, vy, icon)
         self.rot = rot
         self.death_sound = pygame.mixer.Sound('assets/sounds/grumble.wav')
-    def die(self):
+    def die(self, ps):
         self.dead = True
         pygame.mixer.Sound.play(self.death_sound)
+        ps.score += 1
 
 
 class Rock(Enemy):
