@@ -88,15 +88,18 @@ class Enemy(Ship):
         super().__init__(x, y, vx, vy, icon)
         self.rot = rot
         self.death_sound = pygame.mixer.Sound('assets/sounds/grumble.wav')
+        self.points = 0
+        self.mult = 1
     def die(self, ps):
         self.dead = True
         pygame.mixer.Sound.play(self.death_sound)
-        ps.score += 1
+        ps.score += self.points*self.mult
 
 
 class Rock(Enemy):
     def __init__(self, x, y, vx, vy, icon, rot):
         super().__init__(x, y, vx, vy, icon, rot)
+        self.points = 10
     def move(self, projectiles, ps, dt):
         self.fall()
         self.x += self.vx * dt/1000
@@ -108,6 +111,7 @@ class Satelite(Enemy):
         super().__init__(x, y, vx, vy, icon, rot)
         self.lastShot = 0
         self.zap_sound = pygame.mixer.Sound('assets/sounds/high_chirp.wav')
+        self.points = 100
     def move(self, projectiles, ps, dt):
         self.fall()
         self.x += self.vx * dt/1000
@@ -122,3 +126,4 @@ class Satelite(Enemy):
             off_y = -math.cos(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()//2
             projectiles.append(Laser(self.x+off_x, self.y+off_y, directionToPlayer))
             pygame.mixer.Sound.play(self.zap_sound)
+            self.points = math.ceil(self.points*0.9)
