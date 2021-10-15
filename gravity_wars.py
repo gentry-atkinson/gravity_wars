@@ -33,6 +33,7 @@ if __name__ == '__main__':
     main_font = pygame.font.SysFont('Courier 10', 50)
 
     level = 1
+    score = 0
 
     pygame.mixer.music.load('assets/music/8-bit6-Dirty.ogg')
     pygame.mixer.music.play(-1)
@@ -40,11 +41,12 @@ if __name__ == '__main__':
     #Load Images
     game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
     score_label = main_font.render('Score: 0', 1, (255, 255, 255))
-    static_images = [
-        [IL.BG, (0, 0)],
-        [game_label, (GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT//40)],
-        [score_label,(GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT - 100)]
-    ]
+
+    static_images = {
+        'BG': [IL.BG, (0, 0)],
+        'LEVEL': [game_label, (GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT//40)],
+        'SCORE': [score_label,(GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT - 100)]
+    }
 
     player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100, IL.PLAYER_SHIP)
     planet = Planet(IL.PLANET)
@@ -71,11 +73,13 @@ if __name__ == '__main__':
         if enemies == []:
             level += 1
             enemies = lev_list[level-1]
+            # game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
+            # static_images = [
+            #     [IL.BG, (0, 0)],
+            #     [game_label, (GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT//40)],
+            # ]
             game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
-            static_images = [
-                [IL.BG, (0, 0)],
-                [game_label, (GW_globals.WIDTH//2 - 100, GW_globals.HEIGHT//40)],
-            ]
+            static_images['LEVEL'][0] = game_label
         for e in enemies:
             e.move(projectiles, player_ship, dt)
         for p in projectiles:
