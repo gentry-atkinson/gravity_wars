@@ -73,7 +73,7 @@ if __name__ == '__main__':
         static_images['SCORE'][0] = score_label
         if enemies == []:
             level += 1
-            if level >= len(lev_list):
+            if level > len(lev_list):
                 running = False
                 break
             enemies = lev_list[level-1]
@@ -101,7 +101,7 @@ if __name__ == '__main__':
 
     score_label = main_font.render(f'Final Score: {player_ship.score}', 1, (255, 255, 255))
     high_label = main_font.render(f'High Score: {high_score}', 1, (255, 255, 255))
-    game_label = main_font.render('You Have {}'.format('Won' if level >= len(lev_list) else 'Died'), 1, (255, 255, 255))
+    game_label = main_font.render('You Have {}'.format('Won' if level > len(lev_list) else 'Died'), 1, (255, 255, 255))
     static_images['LEVEL'][0] = game_label
     static_images['SCORE'][0] = score_label
     static_images['HIGH'] = [high_label, (GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT * 0.7)]

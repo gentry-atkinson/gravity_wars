@@ -30,5 +30,5 @@ lev_list = [
         Satelite(400, 200, 150, 0, IL.SAT, 0),
         Satelite(500, 500, -50, 100, IL.SAT, 0),
         Satelite(300, 200, 50, -100, IL.SAT, 0)
-    ],
+    ]
 ]
