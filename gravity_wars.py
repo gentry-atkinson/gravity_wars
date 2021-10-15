@@ -90,13 +90,14 @@ if __name__ == '__main__':
     death_screen = True
     pygame.mixer.music.stop()
 
+    high_score = 0
     with open('high_score.txt', 'r') as score_file:
         high_score = int(score_file.readline().strip())
 
     if player_ship.score > high_score:
             high_score = player_ship.score
             with open('high_score.txt', 'w') as score_file:
-                score_file.write(hgih_score)
+                score_file.write(str(high_score))
 
     score_label = main_font.render(f'Final Score: {player_ship.score}', 1, (255, 255, 255))
     high_label = main_font.render(f'High Score: {high_score}', 1, (255, 255, 255))
