@@ -116,6 +116,7 @@ class Satelite(Enemy):
         self.fall()
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
+        self.rot += 1
         self.lastShot += dt
         if self.lastShot > 1000:
             self.lastShot = 0

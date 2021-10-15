@@ -117,5 +117,5 @@ if __name__ == '__main__':
                 death_screen = False
         keys = pygame.key.get_pressed()
         if sum(keys) != 0: death_screen = False
-
-    print('Explosions! Pew pew pew! Final score: ', player_ship.score)
+    #
+    # print('Explosions! Pew pew pew! Final score: ', player_ship.score)
