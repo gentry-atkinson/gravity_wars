@@ -11,7 +11,7 @@ from GW_utils import check_collisions
 
 
 def draw_screen(screen, static_images, ps, projectiles, planet, enemies):
-    for i in static_images:
+    for i in static_images.values():
         screen.blit(i[0], i[1])
     ps.draw(screen)
     planet.draw(screen)
