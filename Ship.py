@@ -3,6 +3,7 @@ import GW_globals
 import math
 import GW_utils
 from Projectile import Laser
+import Image_Loader as IL
 
 def euc_dist (x1, y1, x2, y2):
     return math.sqrt((x1-x2)**2 + (y1-y2)**2)
@@ -57,6 +58,9 @@ class Player(Ship):
         if keys[pygame.K_UP]:
             self.vy -= math.cos(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST
             self.vx -= math.sin(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST
+            self.icon = IL.PLAYER_SHIP_BURN
+        else:
+            self.icon = IL.PLAYER_SHIP
         # if keys[pygame.K_DOWN]:
         #     self.vy += math.cos(self.rot) * GW_globals.THRUST
         #     self.vx += math.sin(self.rot) * GW_globals.THRUST
@@ -116,7 +120,7 @@ class Satelite(Enemy):
         self.fall()
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
-        self.rot += 1
+        self.rot -= 1
         self.lastShot += dt
         if self.lastShot > 1500:
             self.lastShot = 0
