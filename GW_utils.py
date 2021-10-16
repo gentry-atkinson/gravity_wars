@@ -27,8 +27,11 @@ def check_collisions(ps, projectiles, planet, enemies):
         off_x = ship_rect.x - p_rect.x
         off_y = ship_rect.y - p_rect.y
         if p.mask.overlap(ps.mask, (int(off_x), int(off_y))) != None:
-            ps.dead = True
-            print("Zap!")
+            if ps.shield:
+                ps.shield = False
+            else:
+                ps.dead = True
+                print("Zap!")
         for e in enemies:
             e_rect = e.icon.get_rect(center=(e.x + e.get_width()//2, e.y+e.get_height()//2))
             off_x = e_rect.x - p_rect.x

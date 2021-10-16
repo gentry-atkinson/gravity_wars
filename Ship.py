@@ -43,10 +43,7 @@ class Player(Ship):
         self.lastShot = 0
         self.zap_sound = pygame.mixer.Sound('assets/sounds/low_chirp.wav')
         self.score = 0
-        self.fShield = True
-        self.lShield = True
-        self.bShield = True
-        self.rShield = True
+        self.shield = True
 
     def move(self, keys, projectiles, dt):
         self.fall()
@@ -92,6 +89,8 @@ class Player(Ship):
         elif self.vy < -GW_globals.C:
             self.vy = -GW_globals.C
     def draw(self, screen):
+        if self.shield:
+            screen.blit(IL.SHIELD, (self.x-13, self.y-13))
         if self.icon == IL.PLAYER_SHIP_BURN:
             GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y-5), self.rot)
         else:

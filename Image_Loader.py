@@ -11,4 +11,4 @@ SAT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat.
 LAS = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'shot.png')), (3, 6))
 ALERT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'alert.png')), (40, 40))
 PLAYER_SHIP_BURN = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship_burning.png')), (20, 25))
-SHIELD = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship_burning.png')), (30, 6))
+SHIELD = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'shield.png')), (46, 46))
