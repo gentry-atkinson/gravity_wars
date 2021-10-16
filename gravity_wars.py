@@ -71,6 +71,8 @@ if __name__ == '__main__':
         enemies = [e for e in enemies if not e.dead]
         score_label = main_font.render(f'Score: {player_ship.score}', 1, (255, 255, 255))
         static_images['SCORE'][0] = score_label
+        if player_ship.drift:
+            static_images['ALERT'] = [IL.ALERT, GW_globals.WIDTH * 0.9, GW_globals.HEIGHT*0.9]
         if enemies == []:
             level += 1
             if level > len(lev_list):

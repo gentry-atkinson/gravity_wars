@@ -9,3 +9,4 @@ PLANET = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'p
 ROCK = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'rock.png')), (20, 20))
 SAT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat.png')), (20, 20))
 LAS = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'shot.png')), (3, 6))
+ALERT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'alert.png')), (40, 40))

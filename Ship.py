@@ -17,6 +17,7 @@ class Ship:
         self.icon = icon
         self.mask = pygame.mask.from_surface(self.icon)
         self.dead = False
+        self.drift = False
     def draw(self, screen):
         GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
     def get_width(self):
@@ -47,10 +48,10 @@ class Player(Ship):
         self.y += self.vy * dt/1000
         if self.x > 900 or self.x < -100:
             print('Lost in Space')
-            self.dead = True
+            self.drift = True
         elif self.y > 900 or self.y < -100:
             print('Lost in Space')
-            self.dead = True
+            self.drift = True
         self.lastShot += dt
         if keys[pygame.K_UP]:
             self.vy -= math.cos(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST
@@ -70,9 +71,7 @@ class Player(Ship):
                 projectiles.append(Laser(self.x+off_x, self.y+off_y, self.rot))
                 pygame.mixer.Sound.play(self.zap_sound)
 
-
         self.rot = self.rot%360
-        #self.icon = pygame.transform.rotate(self.icon, self.rot)
 
         if self.vx > GW_globals.C:
             self.vx = GW_globals.C
