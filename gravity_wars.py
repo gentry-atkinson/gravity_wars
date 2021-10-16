@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     #Load Images
 
-    player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100, IL.PLAYER_SHIP)
+    player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100)
     planet = Planet(IL.PLANET)
     game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
     score_label = main_font.render('Score: 0', 1, (255, 255, 255))

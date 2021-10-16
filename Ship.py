@@ -19,6 +19,7 @@ class Ship:
         self.mask = pygame.mask.from_surface(self.icon)
         self.dead = False
         self.drift = False
+
     def draw(self, screen):
         GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
     def get_width(self):
@@ -37,11 +38,15 @@ class Ship:
             self.vy += GW_globals.GRAVITY/dist
 
 class Player(Ship):
-    def __init__(self, x, y, vx, vy, icon):
-        super().__init__(x, y, vx, vy, icon)
+    def __init__(self, x, y, vx, vy):
+        super().__init__(x, y, vx, vy, IL.PLAYER_SHIP)
         self.lastShot = 0
         self.zap_sound = pygame.mixer.Sound('assets/sounds/low_chirp.wav')
         self.score = 0
+        self.fShield = True
+        self.lShield = True
+        self.bShield = True
+        self.rShield = True
 
     def move(self, keys, projectiles, dt):
         self.fall()
@@ -86,6 +91,11 @@ class Player(Ship):
             self.vy = GW_globals.C
         elif self.vy < -GW_globals.C:
             self.vy = -GW_globals.C
+    def draw(self, screen):
+        if self.icon == IL.PLAYER_SHIP_BURN:
+            GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y-5), self.rot)
+        else:
+            GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
 
 class Enemy(Ship):
     def __init__(self, x, y, vx, vy, icon, rot):
