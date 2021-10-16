@@ -118,7 +118,7 @@ class Satelite(Enemy):
         self.y += self.vy * dt/1000
         self.rot += 1
         self.lastShot += dt
-        if self.lastShot > 1000:
+        if self.lastShot > 1500:
             self.lastShot = 0
             directionToPlayer = math.atan2((self.x-ps.x), (self.y - ps.y))
             directionToPlayer %= 2*math.pi
