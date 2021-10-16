@@ -12,7 +12,8 @@ from GW_utils import check_collisions
 
 def draw_screen(screen, static_images, ps, projectiles, planet, enemies):
     for i in static_images.values():
-        screen.blit(i[0], i[1])
+        if i != []:
+            screen.blit(i[0], i[1])
     ps.draw(screen)
     planet.draw(screen)
     for i in projectiles:
@@ -34,6 +35,7 @@ if __name__ == '__main__':
     main_font = pygame.font.Font('assets/font/Baskic8.otf', 50)
 
     level = 1
+    drift_timer = 0
 
     pygame.mixer.music.load('assets/music/8-bit6-Dirty.ogg')
     pygame.mixer.music.play(-1)
@@ -64,6 +66,7 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+                #pygame.quit()
         draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies)
         keys = pygame.key.get_pressed()
         player_ship.move(keys, projectiles, dt)
@@ -72,7 +75,16 @@ if __name__ == '__main__':
         score_label = main_font.render(f'Score: {player_ship.score}', 1, (255, 255, 255))
         static_images['SCORE'][0] = score_label
         if player_ship.drift:
-            static_images['ALERT'] = [IL.ALERT, GW_globals.WIDTH * 0.9, GW_globals.HEIGHT*0.9]
+            static_images['ALERT'] = [IL.ALERT, (10, GW_globals.HEIGHT*0.9)]
+            drift_timer += dt
+            drift_label = main_font.render(f'{drift_timer//1000}', 1, (255, 255, 255))
+            static_images['DRIFT_LABEL'] = [drift_label, (60, GW_globals.HEIGHT*0.9)]
+            if drift_timer > 3000:
+                player_ship.dead = True
+        else:
+            drift_timer = 0
+            static_images['ALERT'] = []
+            static_images['DRIFT_LABEL'] = []
         if enemies == []:
             level += 1
             if level > len(lev_list):
