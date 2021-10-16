@@ -44,6 +44,7 @@ class Player(Ship):
         self.zap_sound = pygame.mixer.Sound('assets/sounds/low_chirp.wav')
         self.score = 0
         self.shield = True
+        self.burn = True
 
     def move(self, keys, projectiles, dt):
         self.fall()
@@ -60,9 +61,9 @@ class Player(Ship):
         if keys[pygame.K_UP]:
             self.vy -= math.cos(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST
             self.vx -= math.sin(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST
-            self.icon = IL.PLAYER_SHIP_BURN
+            self.burn = True
         else:
-            self.icon = IL.PLAYER_SHIP
+            self.burn = False
         # if keys[pygame.K_DOWN]:
         #     self.vy += math.cos(self.rot) * GW_globals.THRUST
         #     self.vx += math.sin(self.rot) * GW_globals.THRUST
@@ -91,10 +92,11 @@ class Player(Ship):
     def draw(self, screen):
         if self.shield:
             screen.blit(IL.SHIELD, (self.x-13, self.y-13))
-        if self.icon == IL.PLAYER_SHIP_BURN:
-            GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y-5), self.rot)
-        else:
-            GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
+        GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
+        if self.burn:
+            off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width()
+            off_y = math.cos(self.rot * GW_globals.DEG_TO_RAD)*self.get_height()
+            GW_utils.blitRotateCenter(screen, IL.PLAYER_SHIP_BURN, (self.x+off_x, self.y+off_y), self.rot)
 
 class Enemy(Ship):
     def __init__(self, x, y, vx, vy, icon, rot):
