@@ -92,11 +92,14 @@ class Player(Ship):
     def draw(self, screen):
         if self.shield:
             screen.blit(IL.SHIELD, (self.x-8, self.y-8))
-        GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
+
         if self.burn:
-            off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width()
-            off_y = math.cos(self.rot * GW_globals.DEG_TO_RAD)*self.get_height()
-            GW_utils.blitRotateCenter(screen, IL.PLAYER_SHIP_BURN, (self.x+off_x, self.y+off_y), self.rot)
+            # off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width()
+            # off_y = math.cos(self.rot * GW_globals.DEG_TO_RAD)*self.get_height()
+            # GW_utils.blitRotateCenter(screen, IL.PLAYER_SHIP_BURN, (self.x+off_x, self.y+off_y), self.rot)
+            GW_utils.blitRotateCenter(screen, IL.PLAYER_SHIP_BURN, (self.x, self.y), self.rot)
+        else:
+            GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
 
 class Enemy(Ship):
     def __init__(self, x, y, vx, vy, icon, rot):

@@ -10,5 +10,5 @@ ROCK = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'roc
 SAT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat.png')), (30, 30))
 LAS = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'shot.png')), (10, 10))
 ALERT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'alert.png')), (40, 40))
-PLAYER_SHIP_BURN = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'rocket_flare.png')), (15, 10))
+PLAYER_SHIP_BURN = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship_burning.png')), (15, 10))
 SHIELD = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'shield.png')), (46, 46))
