@@ -91,7 +91,7 @@ class Player(Ship):
             self.vy = -GW_globals.C
     def draw(self, screen):
         if self.shield:
-            screen.blit(IL.SHIELD, (self.x-13, self.y-13))
+            screen.blit(IL.SHIELD, (self.x-8, self.y-8))
         GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
         if self.burn:
             off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width()
