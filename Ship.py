@@ -91,7 +91,11 @@ class Player(Ship):
             self.vy = -GW_globals.C
     def draw(self, screen):
         if self.shield:
-            screen.blit(IL.SHIELD, (self.x-8, self.y-8))
+            #x offset = 3-8
+            off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*5 - 3
+            #y offset = 9-14
+            off_y = math.cos(self.rot * GW_globals.DEG_TO_RAD)*5 - 12
+            screen.blit(IL.SHIELD, (self.x+off_x, self.y+off_y))
 
         if self.burn:
             # off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width()
