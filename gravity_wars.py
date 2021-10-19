@@ -31,7 +31,6 @@ if __name__ == '__main__':
     #Setup and Initialize
     print('Launching Gravity Wars')
     pygame.init()
-    pygame.mixer.init()
     pygame.display.set_caption('Gravity Wars')
     SCREEN = pygame.display.set_mode((GW_globals.WIDTH,GW_globals.HEIGHT))
     running = True
@@ -93,8 +92,7 @@ if __name__ == '__main__':
                 static_images['KEY'] = []
                 static_images['HIGH'] = []
                 static_images['DRIFT_LABEL'] = []
-                pygame.mixer.music.load('assets/music/8bit-Dungeon01_loop.ogg')
-                #pygame.mixer.music.play(-1)
+                #SL.music_on()
                 player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100)
                 planet = Planet(IL.PLANET)
                 enemies = lev_list[level-1].copy()
@@ -141,7 +139,7 @@ if __name__ == '__main__':
         elif gameState == 'death':
             if screen_changed:
                 #print("Set up death")
-                pygame.mixer.music.stop()
+                SL.music_off()
 
                 high_score = 0
                 with open('high_score.txt', 'r') as score_file:

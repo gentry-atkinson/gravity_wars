@@ -4,6 +4,7 @@ import math
 import GW_utils
 from Projectile import Laser
 import Image_Loader as IL
+import Sound_Loader as SL
 
 def euc_dist (x1, y1, x2, y2):
     return math.sqrt((x1-x2)**2 + (y1-y2)**2)
@@ -42,7 +43,7 @@ class Player(Ship):
         super().__init__(x, y, vx, vy, IL.PLAYER_SHIP['no shield no burn'][0])
         self.imageList = IL.PLAYER_SHIP
         self.lastShot = 0
-        self.zap_sound = pygame.mixer.Sound('assets/sounds/low_chirp.wav')
+        self.zap_sound = SL.PLAYER_SHOOT
         self.score = 0
         self.shield = True
         self.burn = True
@@ -121,7 +122,7 @@ class Enemy(Ship):
     def __init__(self, x, y, vx, vy, icon, rot):
         super().__init__(x, y, vx, vy, icon)
         self.rot = rot
-        self.death_sound = pygame.mixer.Sound('assets/sounds/grumble.wav')
+        self.death_sound = SL.ENEMY_EXPLODE
         self.points = 0
         self.mult = 1
     def die(self, ps):
@@ -144,7 +145,7 @@ class Satelite(Enemy):
     def __init__(self, x, y, vx, vy, icon, rot):
         super().__init__(x, y, vx, vy, icon, rot)
         self.lastShot = 0
-        self.zap_sound = pygame.mixer.Sound('assets/sounds/high_chirp.wav')
+        self.zap_sound = SL.SAT_SHOOT
         self.points = 100
     def move(self, projectiles, ps, dt):
         self.fall()
