@@ -53,7 +53,7 @@ if __name__ == '__main__':
     #Game Loop
     clock = pygame.time.Clock()
     while running:
-        print(level)
+        #print(level)
         clock.tick(GW_globals.FPS)
         dt = clock.get_time()
         for event in pygame.event.get():
@@ -73,7 +73,7 @@ if __name__ == '__main__':
                 }
                 static_images['HIGH'] = []
                 screen_changed = False
-                print('set up title')
+                #print('set up title')
             else:
                 pygame.time.wait(10)
             if sum(keys) != 0:
@@ -99,7 +99,7 @@ if __name__ == '__main__':
                 planet = Planet(IL.PLANET)
                 enemies = lev_list[level-1].copy()
                 screen_changed = False
-                print("Set up play")
+                #print("Set up play")
             player_ship.move(keys, projectiles, dt)
             score_label = main_font.render(f'Score: {player_ship.score}', 1, (255, 255, 255))
             static_images['SCORE'][0] = score_label
@@ -115,7 +115,7 @@ if __name__ == '__main__':
                 static_images['ALERT'] = []
                 static_images['DRIFT_LABEL'] = []
             if enemies == []:
-                print('Level Advance')
+                #print('Level Advance')
                 level += 1
                 if level > len(lev_list):
                     gameState = "death"
@@ -127,9 +127,9 @@ if __name__ == '__main__':
             for p in projectiles:
                 p.move(dt)
             check_collisions(player_ship, projectiles, planet, enemies)
-            print(e)
-            for e in enemies:
-                print(type(e), '\t', e.dead)
+            #print(e)
+            # for e in enemies:
+            #     print(type(e), '\t', e.dead)
             enemies = [e for e in enemies if not e.dead]
             projectiles = [p for p in projectiles if not p.dead]
             if player_ship.dead:
@@ -139,7 +139,7 @@ if __name__ == '__main__':
 
         elif gameState == 'death':
             if screen_changed:
-                print("Set up death")
+                #print("Set up death")
                 pygame.mixer.music.stop()
 
                 high_score = 0
