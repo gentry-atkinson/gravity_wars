@@ -94,7 +94,7 @@ if __name__ == '__main__':
                 static_images['HIGH'] = []
                 static_images['DRIFT_LABEL'] = []
                 pygame.mixer.music.load('assets/music/8bit-Dungeon01_loop.ogg')
-                pygame.mixer.music.play(-1)
+                #pygame.mixer.music.play(-1)
                 player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100)
                 planet = Planet(IL.PLANET)
                 enemies = lev_list[level-1].copy()
@@ -122,6 +122,7 @@ if __name__ == '__main__':
                 enemies = lev_list[level-1].copy()
                 game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
                 static_images['LEVEL'][0] = game_label
+                projectiles = []
             for e in enemies:
                 e.move(projectiles, player_ship, dt)
             for p in projectiles:
@@ -164,6 +165,9 @@ if __name__ == '__main__':
                 planet = None
                 enemies = None
                 screen_changed = False
+                draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies)
+                keys = []
+                pygame.time.wait(500)
             else:
                 pygame.time.wait(10)
             if sum(keys) != 0:
