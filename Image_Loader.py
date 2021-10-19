@@ -14,7 +14,7 @@ ALERT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'al
 SHIELD = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'shield.png')), (46, 58))
 
 PLAYER_SHIP = {
-    "no shield no burn": = [
+    "no shield no burn":  [
         pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship_no_shield_1.png')), (50, 50)),
         pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship_no_shield_1.png')), (50, 50))
     ],
