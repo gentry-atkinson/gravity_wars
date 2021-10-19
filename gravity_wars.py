@@ -15,11 +15,11 @@ def draw_screen(screen, static_images, ps, projectiles, planet, enemies):
         if i != []:
             screen.blit(i[0], i[1])
     ps.draw(screen)
-    planet.draw(screen)
     for i in projectiles:
         i.draw(screen)
     for i in enemies:
         i.draw(screen)
+    planet.draw(screen)
     pygame.display.update()
 
 if __name__ == '__main__':
