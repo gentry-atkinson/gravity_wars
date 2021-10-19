@@ -45,6 +45,7 @@ class Player(Ship):
         self.score = 0
         self.shield = True
         self.burn = True
+        self.stateTimer = 0
 
     def move(self, keys, projectiles, dt):
         self.fall()
@@ -89,21 +90,31 @@ class Player(Ship):
             self.vy = GW_globals.C
         elif self.vy < -GW_globals.C:
             self.vy = -GW_globals.C
-    def draw(self, screen):
-        if self.shield:
-            #x offset = 3-8
-            off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*5 - 3
-            #y offset = 9-14
-            off_y = math.cos(self.rot * GW_globals.DEG_TO_RAD)*5 - 12
-            screen.blit(IL.SHIELD, (self.x+off_x, self.y+off_y))
 
-        if self.burn:
-            # off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width()
-            # off_y = math.cos(self.rot * GW_globals.DEG_TO_RAD)*self.get_height()
-            # GW_utils.blitRotateCenter(screen, IL.PLAYER_SHIP_BURN, (self.x+off_x, self.y+off_y), self.rot)
-            GW_utils.blitRotateCenter(screen, IL.PLAYER_SHIP_BURN, (self.x, self.y), self.rot)
+        self.stateTimer = (self.stateTimer + dt)%1000
+    def draw(self, screen):
+        if self.shield and self.burn:
+            GW_utils.blitRotateCenter(screen, self.icon["with shield with burn"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
+        elif self.shield and not self.burn:
+            GW_utils.blitRotateCenter(screen, self.icon["with shield no burn"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
+        elif not self.shield and self.burn:
+            GW_utils.blitRotateCenter(screen, self.icon["no shield with burn"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
         else:
-            GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
+            GW_utils.blitRotateCenter(screen, self.icon["no shield no burn"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
+        # if self.shield:
+        #     #x offset = 3-8
+        #     off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*5 - 3
+        #     #y offset = 9-14
+        #     off_y = math.cos(self.rot * GW_globals.DEG_TO_RAD)*5 - 12
+        #     screen.blit(IL.SHIELD, (self.x+off_x, self.y+off_y))
+        #
+        # if self.burn:
+        #     # off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width()
+        #     # off_y = math.cos(self.rot * GW_globals.DEG_TO_RAD)*self.get_height()
+        #     # GW_utils.blitRotateCenter(screen, IL.PLAYER_SHIP_BURN, (self.x+off_x, self.y+off_y), self.rot)
+        #     GW_utils.blitRotateCenter(screen, IL.PLAYER_SHIP_BURN, (self.x, self.y), self.rot)
+        # else:
+        #     GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
 
 class Enemy(Ship):
     def __init__(self, x, y, vx, vy, icon, rot):
