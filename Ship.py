@@ -91,8 +91,8 @@ class Player(Ship):
             self.vy = GW_globals.C
         elif self.vy < -GW_globals.C:
             self.vy = -GW_globals.C
-
         self.stateTimer = (self.stateTimer + dt)%1000
+
     def draw(self, screen):
         if self.shield and self.burn:
             GW_utils.blitRotateCenter(screen, self.imageList["with shield with burn"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
@@ -162,3 +162,14 @@ class Satelite(Enemy):
             projectiles.append(Laser(self.x+off_x, self.y+off_y, directionToPlayer))
             pygame.mixer.Sound.play(self.zap_sound)
             self.points = math.ceil(self.points*0.9)
+
+class HeavySat(Satelite):
+    def __init__(self, x, y, vx, vy, icon, rot):
+        self.points = 500
+        self.shield = True
+    def die(self, ps):
+        if self.shield:
+            self.icon = IL.SAT
+            self.shield = True
+        else:
+            super().die(self, ps)
