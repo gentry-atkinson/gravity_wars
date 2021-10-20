@@ -177,15 +177,24 @@ class Satelite(Enemy):
         self.lastShot += dt
         if self.lastShot > self.SHOT_RATE:
             self.lastShot = 0
-            # directionToPlayer = math.atan2((self.x-ps.x), (self.y - ps.y))
-            # directionToPlayer %= 2*math.pi
-            # directionToPlayer = math.degrees(directionToPlayer)
             directionToPlayer = GW_utils.directionAtoB(self.x, self.y, ps.x, ps.y)
             off_x = -math.sin(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()//2
             off_y = -math.cos(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()//2
             projectiles.append(Laser(self.x+off_x, self.y+off_y, directionToPlayer))
             pygame.mixer.Sound.play(self.zap_sound)
             self.points = math.ceil(self.points*0.9)
+        if self.x > 900:
+            self.x = 899
+            self.vx = -self.vx
+        elif self.y > 900:
+            self.y = 899
+            self.vy = -self.vy
+        elif self.y < -100:
+            self.y = -99
+            self.vy = -self.vy
+        elif self.x < -100:
+            self.x = -99
+            self.vx = -self.vx
 
 class HeavySat(Satelite):
     def __init__(self, x, y, vx, vy, rot):
