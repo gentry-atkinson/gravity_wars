@@ -11,9 +11,9 @@ def blitRotateCenter(surf, image, topleft, angle):
     new_rect = rotated_image.get_rect(center = image.get_rect(topleft = topleft).center)
     surf.blit(rotated_image, new_rect)
 
-def directionAtoB(a.x, a.y, b.x, b.y):
-    direction = math.atan2((a.x-b.x), (a.y - b.y))
-    directionToPlayer %= 2*math.pi
+def directionAtoB(ax, ay, bx, by):
+    direction = math.atan2((ax-bx), (ay - by))
+    direction %= 2*math.pi
     return math.degrees(direction)
 
 def check_collisions(ps, projectiles, planet, enemies):

@@ -166,9 +166,10 @@ class Satelite(Enemy):
         self.lastShot += dt
         if self.lastShot > self.SHOT_RATE:
             self.lastShot = 0
-            directionToPlayer = math.atan2((self.x-ps.x), (self.y - ps.y))
-            directionToPlayer %= 2*math.pi
-            directionToPlayer = math.degrees(directionToPlayer)
+            # directionToPlayer = math.atan2((self.x-ps.x), (self.y - ps.y))
+            # directionToPlayer %= 2*math.pi
+            # directionToPlayer = math.degrees(directionToPlayer)
+            directionToPlayer = GW_utils.directionAtoB(self.x, self.y, ps.x, ps.y)
             off_x = -math.sin(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()//2
             off_y = -math.cos(directionToPlayer*GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()//2
             projectiles.append(Laser(self.x+off_x, self.y+off_y, directionToPlayer))
@@ -198,8 +199,8 @@ class HeavySat(Satelite):
             GW_utils.blitRotateCenter(screen, self.imageList["no shield"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
 
 class EnemyShip(Enemy):
-    def __init__(self, x, y, vx, vy, IL.OTHER_SHIP ,rot):
-        super().__init__(x, y, vx, vy, rot)
+    def __init__(self, x, y, vx, vy, rot):
+        super().__init__(x, y, vx, vy,  IL.OTHER_SHIP ,rot)
         self.points = 1000
         self.stateTimer = 0
         self.lastShot = 0
