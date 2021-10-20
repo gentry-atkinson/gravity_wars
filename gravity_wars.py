@@ -129,8 +129,8 @@ if __name__ == '__main__':
                 game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
                 static_images['LEVEL'][0] = game_label
                 projectiles = []
-                draw_screen(SCREEN, static_images, None, None, planet, None, None)
                 gameState = 'load'
+                continue
             for e in enemies:
                 e.move(projectiles, player_ship, particles, dt)
             for p in projectiles:
@@ -163,8 +163,8 @@ if __name__ == '__main__':
             static_images['LEVEL'] = [game_label, (GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT//40)]
             static_images['SCORE'] = [score_label,(GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT - 100)]
             static_images['TITLE'] = []
-            draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies, particles)
             gameState = 'play'
+            continue
         #End Load State
         elif gameState == 'death':
             if screen_changed:
