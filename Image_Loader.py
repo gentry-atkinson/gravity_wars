@@ -30,3 +30,14 @@ PLAYER_SHIP = {
         pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'player_ship_with_shield_burning_2.png')), (50, 50))
     ]
 }
+
+HEAVY_SAT = {
+    "no shield":  [
+        pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat_heavy_no_shield_1.png')), (50, 50)),
+        pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat_heavy_no_shield_1.png')), (50, 50))
+    ],
+    "with shield": [
+        pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat_heavy_with_shield_1.png')), (50, 50)),
+        pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat_heavy_with_shield_2.png')), (50, 50))
+    ]
+}

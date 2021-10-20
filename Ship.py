@@ -134,8 +134,8 @@ class Enemy(Ship):
 
 
 class Rock(Enemy):
-    def __init__(self, x, y, vx, vy, icon, rot):
-        super().__init__(x, y, vx, vy, icon, rot)
+    def __init__(self, x, y, vx, vy, rot):
+        super().__init__(x, y, vx, vy, IL.ROCK, rot)
         self.points = 10
     def move(self, projectiles, ps, dt):
         self.fall()
@@ -168,12 +168,21 @@ class Satelite(Enemy):
 
 class HeavySat(Satelite):
     def __init__(self, x, y, vx, vy, rot):
-        super().__init__(x, y, vx, vy, IL.HEAVY_SAT, rot)
+        super().__init__(x, y, vx, vy, rot)
         self.points = 500
         self.shield = True
+        self.stateTimer = 0
+        self.imageList = IL.HEAVY_SAT
     def die(self, ps):
         if self.shield:
-            self.icon = IL.SAT
-            self.shield = True
+            self.shield = False
         else:
-            super().die(self, ps)
+            super().die(ps)
+    def move(self, projectiles, ps, dt):
+        super().move(projectiles, ps, dt)
+        self.stateTimer = (self.stateTimer + dt) % 1000
+    def draw(self, screen):
+        if self.shield:
+            GW_utils.blitRotateCenter(screen, self.imageList["with shield"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
+        else:
+            GW_utils.blitRotateCenter(screen, self.imageList["no shield"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
