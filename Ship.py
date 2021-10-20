@@ -149,13 +149,14 @@ class Satelite(Enemy):
         self.lastShot = 0
         self.zap_sound = SL.SAT_SHOOT
         self.points = 100
+        self.SHOT_RATE = 1500
     def move(self, projectiles, ps, dt):
         self.fall()
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
         self.rot -= 1
         self.lastShot += dt
-        if self.lastShot > 1500:
+        if self.lastShot > self.SHOT_RATE:
             self.lastShot = 0
             directionToPlayer = math.atan2((self.x-ps.x), (self.y - ps.y))
             directionToPlayer %= 2*math.pi
@@ -173,6 +174,7 @@ class HeavySat(Satelite):
         self.shield = True
         self.stateTimer = 0
         self.imageList = IL.HEAVY_SAT
+        self.SHOT_RATE = 1200
     def die(self, ps):
         if self.shield:
             self.shield = False
