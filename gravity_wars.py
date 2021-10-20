@@ -7,6 +7,7 @@ from Ship import Ship, Player, Rock, Satelite
 import GW_globals
 from Planet import Planet
 import Image_Loader as IL
+import Sound_Loader as SL
 from GW_utils import check_collisions
 
 
@@ -92,7 +93,7 @@ if __name__ == '__main__':
                 static_images['KEY'] = []
                 static_images['HIGH'] = []
                 static_images['DRIFT_LABEL'] = []
-                #SL.music_on()
+                SL.music_on()
                 player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100)
                 planet = Planet(IL.PLANET)
                 enemies = lev_list[level-1].copy()
@@ -116,8 +117,9 @@ if __name__ == '__main__':
                 #print('Level Advance')
                 level += 1
                 if level > len(lev_list):
-                    gameState = "death"
-                enemies = lev_list[level-1].copy()
+                    player_ship.dead = True
+                else:
+                    enemies = lev_list[level-1].copy()
                 game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
                 static_images['LEVEL'][0] = game_label
                 projectiles = []
@@ -134,7 +136,7 @@ if __name__ == '__main__':
             if player_ship.dead:
                 gameState = 'death'
                 screen_changed = True
-                pygame.mixer.Sound.play(self.death_sound)
+                pygame.mixer.Sound.play(player_ship.death_sound)
         #End Play State
 
         elif gameState == 'death':
