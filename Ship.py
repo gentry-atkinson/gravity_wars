@@ -202,4 +202,5 @@ class EnemyShip(Enemy):
         super().__init__(x, y, vx, vy, rot)
         self.points = 1000
         self.stateTimer = 0
+        self.lastShot = 0
         self.zap_sound = SL.ENEMY_SHIP_SHOOT

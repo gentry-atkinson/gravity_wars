@@ -1,4 +1,5 @@
 import pygame
+import math
 
 def rot_center(image, angle, x, y):
     rotated_image = pygame.transform.rotate(image, angle)
@@ -9,6 +10,11 @@ def blitRotateCenter(surf, image, topleft, angle):
     rotated_image = pygame.transform.rotate(image, angle)
     new_rect = rotated_image.get_rect(center = image.get_rect(topleft = topleft).center)
     surf.blit(rotated_image, new_rect)
+
+def directionAtoB(a.x, a.y, b.x, b.y):
+    direction = math.atan2((a.x-b.x), (a.y - b.y))
+    directionToPlayer %= 2*math.pi
+    return math.degrees(direction)
 
 def check_collisions(ps, projectiles, planet, enemies):
     #Did player hit planet
