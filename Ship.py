@@ -150,6 +150,18 @@ class Rock(Enemy):
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
         self.rot += 1
+        if self.x > 900:
+            self.x = 899
+            self.vx = -self.vx
+        elif self.y > 900:
+            self.y = 899
+            self.vy = -self.vy
+        elif self.y < -100:
+            self.y = -99
+            self.vy = -self.vy
+        elif self.x < -100:
+            self.x = -99
+            self.vx = -self.vx
 
 class Satelite(Enemy):
     def __init__(self, x, y, vx, vy, rot):
