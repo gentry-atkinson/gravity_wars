@@ -1,5 +1,4 @@
 from Ship import Rock, Satelite, HeavySat, EnemyShip
-import Image_Loader as IL
 
 # class Rock(Enemy):
 #     def __init__(self, x, y, vx, vy, icon, rot)
@@ -107,4 +106,14 @@ lev_list = [
         Rock(70, 400, 0, 0,  0),
         Rock(80, 415, 0, 0,  0),
     ],
+    #15
+    [
+        EnemyShip(100, 100, 100, 0, 180),
+        EnemyShip(700, 100, 0, 100, 270),
+        EnemyShip(700, 700, -100, 0, 90),
+        EnemyShip(100, 700, 0, -100, 90),
+        Rock(500, 100, 50, 100, 0),
+        Rock(500, 600, -50, 50,  0),
+        Rock(100, 600, 10, -100, 0)
+    ]
 ]

@@ -215,7 +215,6 @@ class EnemyShip(Enemy):
         self.points = 1000
         self.lastShot = 0
         self.zap_sound = SL.ENEMY_SHIP_SHOOT
-        self.death_sound = SL.ENEMY_EXPLODE
         self.burn = False
 
     def move(self, projectiles, ps, particles, dt):

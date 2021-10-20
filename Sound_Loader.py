@@ -19,7 +19,7 @@ PLAYER_SHOOT.set_volume(0.3)
 ENEMY_EXPLODE.set_volume(0.3)
 ENEMY_SHIP_SHOOT.set_volume(0.3)
 PLAYER_DIE.set_volume(0.3)
-PLAYER_SHIELD_DOWN.set_volume(0.3)
+PLAYER_SHIELD_DOWN.set_volume(0.6)
 SAT_SHOOT.set_volume(0.3)
 
 def music_on():
