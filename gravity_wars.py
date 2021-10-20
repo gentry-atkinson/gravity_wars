@@ -71,7 +71,7 @@ if __name__ == '__main__':
                 key_lable = main_font.render('Press Any Key...', 1, (255, 255, 255))
                 static_images = {
                     'BG': [IL.BG, (0, 0)],
-                    'TITLE':[title_lable, (GW_globals.WIDTH//2 - 190, GW_globals.HEIGHT//5)],
+                    'TITLE':[title_lable, (GW_globals.WIDTH//2 - 190, GW_globals.HEIGHT//6)],
                     'KEY': [key_lable, (GW_globals.WIDTH//2 - 150, GW_globals.HEIGHT*0.8)],
                     'ARROWS': [IL.ARROWS, (GW_globals.WIDTH *0.7, GW_globals.HEIGHT//2)],
                     'SPACE':[IL.SPACE, (GW_globals.WIDTH//2 *0.2, GW_globals.HEIGHT//2+40)]

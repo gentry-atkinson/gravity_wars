@@ -134,11 +134,10 @@ class Enemy(Ship):
         self.rot = rot
         self.death_sound = SL.ENEMY_EXPLODE
         self.points = 0
-        self.mult = 1
     def die(self, ps):
         self.dead = True
         pygame.mixer.Sound.play(self.death_sound)
-        ps.score += self.points*self.mult
+        ps.score += self.points
 
 
 class Rock(Enemy):
@@ -216,6 +215,7 @@ class EnemyShip(Enemy):
         self.points = 1000
         self.lastShot = 0
         self.zap_sound = SL.ENEMY_SHIP_SHOOT
+        self.death_sound = SL.ENEMY_EXPLODE
         self.burn = False
 
     def move(self, projectiles, ps, particles, dt):
