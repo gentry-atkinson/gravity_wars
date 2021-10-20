@@ -112,7 +112,7 @@ if __name__ == '__main__':
             if player_ship.drift:
                 static_images['ALERT'] = [IL.ALERT, (10, GW_globals.HEIGHT*0.9)]
                 drift_timer += dt
-                drift_label = main_font.render(f'{drift_timer//1000}', 1, (255, 255, 255))
+                drift_label = main_font.render(f'{3 - drift_timer//1000}', 1, (255, 255, 255))
                 static_images['DRIFT_LABEL'] = [drift_label, (60, GW_globals.HEIGHT*0.9)]
                 if drift_timer > 3000:
                     player_ship.dead = True
@@ -181,10 +181,15 @@ if __name__ == '__main__':
 
                 score_label = main_font.render(f'Final Score: {player_ship.score}', 1, (255, 255, 255))
                 high_label = main_font.render(f'High Score: {high_score}', 1, (255, 255, 255))
-                game_label = main_font.render('You Have {}'.format('Won' if level > len(lev_list) else 'Died'), 1, (255, 255, 255))
-                static_images['LEVEL'][0] = game_label
-                static_images['SCORE'][0] = score_label
-                static_images['HIGH'] = [high_label, (GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT * 0.7)]
+                if level > len(lev_list):
+                    game_label = main_font.render('You Have Defended Zyrth!', 1, (255, 255, 255))
+                else:
+                    game_label = main_font.render('You Have Died...', 1, (255, 255, 255))
+                static_images['LEVEL'] = [game_label, (20, GW_globals.HEIGHT * 0.1)]
+                static_images['SCORE'] = [score_label, (20, GW_globals.HEIGHT * 0.5)]
+                static_images['HIGH'] = [high_label, (20, GW_globals.HEIGHT * 0.7)]
+                static_images['DRIFT_LABEL'] = []
+                static_images['ALERT'] = []
                 level = 0
                 drift_timer = 0
                 screen_changed = True
