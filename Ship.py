@@ -9,7 +9,8 @@ from Particle import Particle
 import random
 
 def euc_dist (x1, y1, x2, y2):
-    return math.sqrt((x1-x2)**2 + (y1-y2)**2)
+    dist = math.sqrt((x1-x2)**2 + (y1-y2)**2)
+    return 1 if dist<1 else dist
 
 class Ship:
     def __init__(self, x, y, vx, vy, icon):
@@ -228,19 +229,28 @@ class EnemyShip(Enemy):
 
     def move(self, projectiles, ps, particles, dt):
         self.fall()
+        if self.vx > GW_globals.C:
+            self.vx = GW_globals.C
+        elif self.vx < -GW_globals.C:
+            self.vx = -GW_globals.C
+        if self.vy > GW_globals.C:
+            self.vy = GW_globals.C
+        elif self.vy < -GW_globals.C:
+            self.vy = -GW_globals.C
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
         dist_from_planet = euc_dist(self.x, self.y, 400, 400)
         speed = euc_dist(self.vx, self.vy, 0, 0)
         self.lastShot = self.lastShot + dt
         targetRot = 0
-        print(dist_from_planet)
 
         #Set direction
-        if dist_from_planet > 300: #slow down
+        if speed > GW_globals.C/2: #slow down
+            targetRot = GW_utils.directionAtoB(self.vx, self.vy, 0, 0)
+        elif dist_from_planet > 300: #Stay in play field
             targetRot = GW_utils.directionAtoB(self.x, self.y, 400, 400)
             self.burn = True
-        elif dist_from_planet > 150: #shoot at play
+        elif dist_from_planet > 150: #shoot at player
             targetRot = GW_utils.directionAtoB(self.x, self.y, ps.x, ps.y)
             self.burn = False
             if self.lastShot > 1000:
