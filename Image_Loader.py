@@ -11,6 +11,7 @@ LAS = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'shot
 ALERT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'alert.png')), (40, 40))
 SHIELD = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'shield.png')), (46, 58))
 HEAVY_SAT = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'sat_heavy.png')), (30, 30))
+PARTICLE = pygame.transform.scale(pygame.image.load(os.path.join('assets/imgs', 'particle.png')), (3, 3))
 
 PLAYER_SHIP = {
     "no shield no burn":  [

@@ -5,6 +5,8 @@ import GW_utils
 from Projectile import Laser
 import Image_Loader as IL
 import Sound_Loader as SL
+from Particle import Particle
+import random
 
 def euc_dist (x1, y1, x2, y2):
     return math.sqrt((x1-x2)**2 + (y1-y2)**2)
@@ -51,7 +53,7 @@ class Player(Ship):
         self.burn = True
         self.stateTimer = 0
 
-    def move(self, keys, projectiles, dt):
+    def move(self, keys, projectiles, particles, dt):
         self.fall()
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
@@ -67,6 +69,12 @@ class Player(Ship):
             self.vy -= math.cos(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST
             self.vx -= math.sin(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST
             self.burn = True
+            off_x = 0.5*math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()/2
+            off_y = 0.5*math.cos(self.rot * GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()/2
+            par_rot = self.rot + random.randint(-10, 10)
+            par_vx = math.sin(par_rot * GW_globals.DEG_TO_RAD)*GW_globals.C*0.5
+            par_vy =  math.cos(par_rot * GW_globals.DEG_TO_RAD)*GW_globals.C*0.5
+            particles.append(Particle(self.x+off_x, self.y+off_y, par_vx, par_vy))
         else:
             self.burn = False
         # if keys[pygame.K_DOWN]:

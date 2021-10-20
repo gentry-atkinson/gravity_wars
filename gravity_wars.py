@@ -11,7 +11,7 @@ import Sound_Loader as SL
 from GW_utils import check_collisions
 
 
-def draw_screen(screen, static_images, ps, projectiles, planet, enemies):
+def draw_screen(screen, static_images, ps, projectiles, planet, enemies, particles):
     for i in static_images.values():
         if i != []:
             screen.blit(i[0], i[1])
@@ -22,8 +22,11 @@ def draw_screen(screen, static_images, ps, projectiles, planet, enemies):
             e.draw(screen)
     if ps:
         ps.draw(screen)
-    for i in projectiles:
-        i.draw(screen)
+    for p in projectiles:
+        p.draw(screen)
+    if particles:
+        for p in particles:
+            p.draw(screen)
 
     pygame.display.update()
 
@@ -44,6 +47,7 @@ if __name__ == '__main__':
     player_ship = None
     planet = None
     enemies = None
+    particles = None
 
 
     projectiles = []
@@ -97,9 +101,10 @@ if __name__ == '__main__':
                 player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100)
                 planet = Planet(IL.PLANET)
                 enemies = lev_list[level-1].copy()
+                particles = []
                 screen_changed = False
                 #print("Set up play")
-            player_ship.move(keys, projectiles, dt)
+            player_ship.move(keys, projectiles, particles, dt)
             score_label = main_font.render(f'Score: {player_ship.score}', 1, (255, 255, 255))
             static_images['SCORE'][0] = score_label
             if player_ship.drift:
@@ -127,12 +132,15 @@ if __name__ == '__main__':
                 e.move(projectiles, player_ship, dt)
             for p in projectiles:
                 p.move(dt)
+            for p in particles:
+                p.move(dt)
             check_collisions(player_ship, projectiles, planet, enemies)
             #print(e)
             # for e in enemies:
             #     print(type(e), '\t', e.dead)
             enemies = [e for e in enemies if not e.dead]
             projectiles = [p for p in projectiles if not p.dead]
+            particles = [p for p in particles if not p.dead]
             if player_ship.dead:
                 gameState = 'death'
                 screen_changed = True
@@ -165,8 +173,9 @@ if __name__ == '__main__':
                 player_ship = None
                 planet = None
                 enemies = None
+                particles = None
                 screen_changed = False
-                draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies)
+                draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies, particles)
                 keys = []
                 pygame.time.wait(500)
             else:
@@ -174,6 +183,6 @@ if __name__ == '__main__':
             if sum(keys) != 0:
                 running = False
         #End Death State
-        draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies)
+        draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies, particles)
     #End Game Loop
 #End Main Function
