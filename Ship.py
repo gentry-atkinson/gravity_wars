@@ -144,8 +144,8 @@ class Rock(Enemy):
         self.rot += 1
 
 class Satelite(Enemy):
-    def __init__(self, x, y, vx, vy, icon, rot):
-        super().__init__(x, y, vx, vy, icon, rot)
+    def __init__(self, x, y, vx, vy, rot):
+        super().__init__(x, y, vx, vy, IL.SAT, rot)
         self.lastShot = 0
         self.zap_sound = SL.SAT_SHOOT
         self.points = 100
@@ -167,7 +167,8 @@ class Satelite(Enemy):
             self.points = math.ceil(self.points*0.9)
 
 class HeavySat(Satelite):
-    def __init__(self, x, y, vx, vy, icon, rot):
+    def __init__(self, x, y, vx, vy, rot):
+        super().__init__(x, y, vx, vy, IL.HEAVY_SAT, rot)
         self.points = 500
         self.shield = True
     def die(self, ps):
