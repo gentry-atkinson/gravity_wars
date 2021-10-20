@@ -22,8 +22,9 @@ def draw_screen(screen, static_images, ps, projectiles, planet, enemies, particl
             e.draw(screen)
     if ps:
         ps.draw(screen)
-    for p in projectiles:
-        p.draw(screen)
+    if projectiles:
+        for p in projectiles:
+            p.draw(screen)
     if particles:
         for p in particles:
             p.draw(screen)
@@ -128,6 +129,8 @@ if __name__ == '__main__':
                 game_label = main_font.render(f'Level {level}', 1, (255, 255, 255))
                 static_images['LEVEL'][0] = game_label
                 projectiles = []
+                draw_screen(SCREEN, static_images, None, None, planet, None, None)
+                gameState = 'load'
             for e in enemies:
                 e.move(projectiles, player_ship, particles, dt)
             for p in projectiles:
@@ -145,7 +148,24 @@ if __name__ == '__main__':
                 screen_changed = True
                 pygame.mixer.Sound.play(player_ship.death_sound)
         #End Play State
-
+        elif gameState == 'load':
+            title_lable = main_font.render('A New Wave Approaches...', 1, (255, 255, 255))
+            static_images['LEVEL'] = []
+            static_images['SCORE'] = []
+            static_images['TITLE'] = [title_lable, (100, GW_globals.HEIGHT*0.8)]
+            static_images['DRIFT_LABEL'] = []
+            player_ship.x = GW_globals.WIDTH//4
+            player_ship.y =  GW_globals.HEIGHT//4
+            player_ship.vx = 100
+            player_ship.vy = -100
+            draw_screen(SCREEN, static_images, None, None, planet, None, None)
+            pygame.time.wait(1000)
+            static_images['LEVEL'] = [game_label, (GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT//40)]
+            static_images['SCORE'] = [score_label,(GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT - 100)]
+            static_images['TITLE'] = []
+            draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies, particles)
+            gameState = 'play'
+        #End Load State
         elif gameState == 'death':
             if screen_changed:
                 SL.music_off()
