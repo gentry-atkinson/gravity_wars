@@ -72,8 +72,10 @@ if __name__ == '__main__':
                 key_lable = main_font.render('Press Any Key...', 1, (255, 255, 255))
                 static_images = {
                     'BG': [IL.BG, (0, 0)],
-                    'TITLE':[title_lable, (GW_globals.WIDTH//2 - 145, GW_globals.HEIGHT//2-100)],
-                    'KEY': [key_lable, (GW_globals.WIDTH//2 - 150, GW_globals.HEIGHT*0.7)]
+                    'TITLE':[title_lable, (GW_globals.WIDTH//2 - 140, GW_globals.HEIGHT//5)],
+                    'KEY': [key_lable, (GW_globals.WIDTH//2 - 150, GW_globals.HEIGHT*0.8)],
+                    'ARROWS': [IL.ARROWS, (GW_globals.WIDTH *0.7, GW_globals.HEIGHT//2)],
+                    'SPACE':[IL.SPACE, (GW_globals.WIDTH//2 *0.2, GW_globals.HEIGHT//2+40)]
                 }
                 static_images['HIGH'] = []
                 screen_changed = False
@@ -93,6 +95,8 @@ if __name__ == '__main__':
                 score_label = main_font.render('Score: 0', 1, (255, 255, 255))
                 static_images['LEVEL'] = [game_label, (GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT//40)]
                 static_images['SCORE'] = [score_label,(GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT - 100)]
+                static_images['ARROWS'] = []
+                static_images['SPACE'] = []
                 static_images['TITLE'] = []
                 static_images['KEY'] = []
                 static_images['HIGH'] = []
