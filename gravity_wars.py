@@ -33,7 +33,7 @@ def draw_screen(screen, static_images, ps, projectiles, planet, enemies, particl
 if __name__ == '__main__':
 
     #Setup and Initialize
-    print('Launching Gravity Wars')
+    #print('Launching Defender of Zyrth!')
     pygame.init()
     pygame.display.set_caption('Gravity Wars')
     SCREEN = pygame.display.set_mode((GW_globals.WIDTH,GW_globals.HEIGHT))
@@ -57,7 +57,6 @@ if __name__ == '__main__':
     #Game Loop
     clock = pygame.time.Clock()
     while running:
-        #print(level)
         clock.tick(GW_globals.FPS)
         dt = clock.get_time()
         for event in pygame.event.get():
@@ -68,18 +67,17 @@ if __name__ == '__main__':
 
         if gameState == "title":
             if screen_changed:
-                title_lable = main_font.render('Gravity Wars', 1, (255, 255, 255))
+                title_lable = main_font.render('Defender of Zyrth!', 1, (255, 255, 255))
                 key_lable = main_font.render('Press Any Key...', 1, (255, 255, 255))
                 static_images = {
                     'BG': [IL.BG, (0, 0)],
-                    'TITLE':[title_lable, (GW_globals.WIDTH//2 - 140, GW_globals.HEIGHT//5)],
+                    'TITLE':[title_lable, (GW_globals.WIDTH//2 - 190, GW_globals.HEIGHT//5)],
                     'KEY': [key_lable, (GW_globals.WIDTH//2 - 150, GW_globals.HEIGHT*0.8)],
                     'ARROWS': [IL.ARROWS, (GW_globals.WIDTH *0.7, GW_globals.HEIGHT//2)],
                     'SPACE':[IL.SPACE, (GW_globals.WIDTH//2 *0.2, GW_globals.HEIGHT//2+40)]
                 }
                 static_images['HIGH'] = []
                 screen_changed = False
-                #print('set up title')
             else:
                 pygame.time.wait(10)
             if sum(keys) != 0:
@@ -107,7 +105,6 @@ if __name__ == '__main__':
                 enemies = lev_list[level-1].copy()
                 particles = []
                 screen_changed = False
-                #print("Set up play")
             player_ship.move(keys, projectiles, particles, dt)
             score_label = main_font.render(f'Score: {player_ship.score}', 1, (255, 255, 255))
             static_images['SCORE'][0] = score_label
@@ -123,7 +120,6 @@ if __name__ == '__main__':
                 static_images['ALERT'] = []
                 static_images['DRIFT_LABEL'] = []
             if enemies == []:
-                #print('Level Advance')
                 level += 1
                 if level > len(lev_list):
                     player_ship.dead = True
@@ -139,7 +135,6 @@ if __name__ == '__main__':
             for p in particles:
                 p.move(dt)
             check_collisions(player_ship, projectiles, planet, enemies)
-            #print(e)
             # for e in enemies:
             #     print(type(e), '\t', e.dead)
             enemies = [e for e in enemies if not e.dead]
@@ -153,7 +148,6 @@ if __name__ == '__main__':
 
         elif gameState == 'death':
             if screen_changed:
-                #print("Set up death")
                 SL.music_off()
 
                 high_score = 0

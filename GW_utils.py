@@ -25,7 +25,7 @@ def check_collisions(ps, projectiles, planet, enemies):
     off_y = planet_rect.y - ship_rect.y
     if ps.mask.overlap(planet.mask, (int(off_x), int(off_y))) != None:
         ps.dead = True
-        print("Kaboom!")
+        #print("Kaboom!")
 
     #Did a bullet hit anyone
     for p in projectiles:
@@ -34,13 +34,13 @@ def check_collisions(ps, projectiles, planet, enemies):
         off_y = ship_rect.y - p_rect.y
         if p.mask.overlap(ps.mask, (int(off_x), int(off_y))) != None:
             if ps.shield:
-                print("Shield Down!")
+                #print("Shield Down!")
                 pygame.mixer.Sound.play(ps.shield_sound)
                 ps.shield = False
                 p.dead = True
             else:
                 ps.dead = True
-                print("Zap!")
+                #print("Zap!")
         for e in enemies:
             e_rect = e.icon.get_rect(center=(e.x + e.get_width()//2, e.y+e.get_height()//2))
             off_x = e_rect.x - p_rect.x
@@ -48,7 +48,7 @@ def check_collisions(ps, projectiles, planet, enemies):
             if p.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
                 e.die(ps)
                 p.dead = True
-                print("Score!")
+                #print("Score!")
 
     #Did a player crash into an enemy
     for e in enemies:
@@ -58,4 +58,4 @@ def check_collisions(ps, projectiles, planet, enemies):
         if ps.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
             e.die(ps)
             ps.dead = True
-            print("Wrecked!")
+            #print("Wrecked!")
