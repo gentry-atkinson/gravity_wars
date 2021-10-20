@@ -29,6 +29,7 @@ def check_collisions(ps, projectiles, planet, enemies):
         if p.mask.overlap(ps.mask, (int(off_x), int(off_y))) != None:
             if ps.shield:
                 print("Shield Down!")
+                pygame.mixer.Sound.play(self.shield_sound)
                 ps.shield = False
                 p.dead = True
             else:

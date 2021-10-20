@@ -134,6 +134,7 @@ if __name__ == '__main__':
             if player_ship.dead:
                 gameState = 'death'
                 screen_changed = True
+                pygame.mixer.Sound.play(self.death_sound)
         #End Play State
 
         elif gameState == 'death':

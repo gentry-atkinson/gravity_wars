@@ -44,6 +44,8 @@ class Player(Ship):
         self.imageList = IL.PLAYER_SHIP
         self.lastShot = 0
         self.zap_sound = SL.PLAYER_SHOOT
+        self.death_sound = SL.PLAYER_DIE
+        self.shield_sound = SL.PLAYER_SHIELD_DOWN
         self.score = 0
         self.shield = True
         self.burn = True
