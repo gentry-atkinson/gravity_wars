@@ -202,7 +202,7 @@ class HeavySat(Satelite):
         else:
             super().die(ps)
     def move(self, projectiles, ps, particles, dt):
-        super().move(projectiles, ps, dt)
+        super().move(projectiles, ps, particles, dt)
         self.stateTimer = (self.stateTimer + dt) % 1000
     def draw(self, screen):
         if self.shield:
