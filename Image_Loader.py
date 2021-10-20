@@ -4,7 +4,7 @@ import GW_globals
 
 path = os.path.join('assets', 'imgs')
 
-OTHER_SHIP = pygame.image.load(os.path.join(path, 'crescent.png'))
+OTHER_SHIP = pygame.transform.scale(pygame.image.load(os.path.join(path, 'crescent.png')), (25, 25))
 BG = pygame.transform.scale(pygame.image.load(os.path.join(path, 'background.png')), (GW_globals.WIDTH, GW_globals.HEIGHT))
 PLANET = pygame.transform.scale(pygame.image.load(os.path.join(path, 'planet.png')), (GW_globals.PLANET_SIZE, GW_globals.PLANET_SIZE))
 ROCK = pygame.transform.scale(pygame.image.load(os.path.join(path, 'rock.png')), (30, 30))

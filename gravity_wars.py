@@ -129,7 +129,7 @@ if __name__ == '__main__':
                 static_images['LEVEL'][0] = game_label
                 projectiles = []
             for e in enemies:
-                e.move(projectiles, player_ship, dt)
+                e.move(projectiles, player_ship, particles, dt)
             for p in projectiles:
                 p.move(dt)
             for p in particles:

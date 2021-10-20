@@ -145,7 +145,7 @@ class Rock(Enemy):
     def __init__(self, x, y, vx, vy, rot):
         super().__init__(x, y, vx, vy, IL.ROCK, rot)
         self.points = 10
-    def move(self, projectiles, ps, dt):
+    def move(self, projectiles, ps, particles, dt):
         self.fall()
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
@@ -170,7 +170,7 @@ class Satelite(Enemy):
         self.zap_sound = SL.SAT_SHOOT
         self.points = 100
         self.SHOT_RATE = 1500
-    def move(self, projectiles, ps, dt):
+    def move(self, projectiles, ps, particles, dt):
         self.fall()
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
@@ -201,7 +201,7 @@ class HeavySat(Satelite):
             self.shield = False
         else:
             super().die(ps)
-    def move(self, projectiles, ps, dt):
+    def move(self, projectiles, ps, particles, dt):
         super().move(projectiles, ps, dt)
         self.stateTimer = (self.stateTimer + dt) % 1000
     def draw(self, screen):
@@ -214,6 +214,48 @@ class EnemyShip(Enemy):
     def __init__(self, x, y, vx, vy, rot):
         super().__init__(x, y, vx, vy,  IL.OTHER_SHIP ,rot)
         self.points = 1000
-        self.stateTimer = 0
         self.lastShot = 0
         self.zap_sound = SL.ENEMY_SHIP_SHOOT
+        self.burn = False
+
+    def move(self, projectiles, ps, particles, dt):
+        self.fall()
+        self.x += self.vx * dt/1000
+        self.y += self.vy * dt/1000
+        dist_from_planet = euc_dist(self.x, self.y, 0, 0)
+        self.lastShot = self.lastShot + dt
+        targetRot = 0
+
+        #Set direction
+        if dist_from_planet > 600:
+            targetRot = GW_utils.directionAtoB(self.x, self.y, 0, 0)
+            self.burn = True
+        elif dist_from_planet > 150:
+            targetRot = GW_utils.directionAtoB(self.x, self.y, ps.x, ps.y)
+            self.burn = False
+            if self.lastShot > 1000:
+                self.lastShot = 0
+                self.points = math.ceil(self.points*0.9)
+                off_x = -math.sin(self.rot*GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()//2
+                off_y = -math.cos(self.rot*GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()//2
+                projectiles.append(Laser(self.x+off_x, self.y+off_y, self.rot))
+                pygame.mixer.Sound.play(self.zap_sound)
+        else:
+            targetRot = GW_utils.directionAtoB(self.x, self.y, 0, 0)-90
+            self.burn = True
+
+        #Turn to face desired direction
+        if targetRot < self.rot:
+            self.rot -= GW_globals.TURN_SPEED
+        else:
+            self.rot += GW_globals.TURN_SPEED
+
+        #Thrust if appropriate
+        if (-20 < (self.rot-targetRot) < 20) and self.burn and euc_dist(self.vx, self.vy, 0, 0) < GW_globals.C:
+             self.vx += GW_globals.THRUST * dt/1000
+             off_x = 0.5*math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()/2
+             off_y = 0.5*math.cos(self.rot * GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()/2
+             par_rot = self.rot + random.randint(-10, 10)
+             par_vx = math.sin(par_rot * GW_globals.DEG_TO_RAD)*GW_globals.C*0.5
+             par_vy =  math.cos(par_rot * GW_globals.DEG_TO_RAD)*GW_globals.C*0.5
+             particles.append(Particle(self.x+off_x, self.y+off_y, par_vx, par_vy))
