@@ -230,15 +230,17 @@ class EnemyShip(Enemy):
         self.fall()
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
-        dist_from_planet = euc_dist(self.x, self.y, 0, 0)
+        dist_from_planet = euc_dist(self.x, self.y, 400, 400)
+        speed = euc_dist(self.vx, self.vy, 0, 0)
         self.lastShot = self.lastShot + dt
         targetRot = 0
+        print(dist_from_planet)
 
         #Set direction
-        if dist_from_planet > 600:
-            targetRot = GW_utils.directionAtoB(self.x, self.y, 0, 0)
+        if dist_from_planet > 300: #slow down
+            targetRot = GW_utils.directionAtoB(self.x, self.y, 400, 400)
             self.burn = True
-        elif dist_from_planet > 150:
+        elif dist_from_planet > 150: #shoot at play
             targetRot = GW_utils.directionAtoB(self.x, self.y, ps.x, ps.y)
             self.burn = False
             if self.lastShot > 1000:
@@ -248,7 +250,7 @@ class EnemyShip(Enemy):
                 off_y = -math.cos(self.rot*GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()//2
                 projectiles.append(Laser(self.x+off_x, self.y+off_y, self.rot))
                 pygame.mixer.Sound.play(self.zap_sound)
-        else:
+        else: #avoid planet
             targetRot = GW_utils.directionAtoB(self.x, self.y, 0, 0)-90
             self.burn = True
 
@@ -259,8 +261,9 @@ class EnemyShip(Enemy):
             self.rot += GW_globals.TURN_SPEED*dt/1000
 
         #Thrust if appropriate
-        if (-20 < (self.rot-targetRot) < 20) and self.burn and euc_dist(self.vx, self.vy, 0, 0) < GW_globals.C:
-             self.vx += GW_globals.THRUST * dt/1000
+        if (-20 < (self.rot-targetRot) < 20) and self.burn:
+             self.vy += -math.cos(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST * 0.5
+             self.vx += -math.sin(self.rot*GW_globals.DEG_TO_RAD) * GW_globals.THRUST * 0.5
              off_x = 0.5*math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()/2
              off_y = 0.5*math.cos(self.rot * GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()/2
              par_rot = self.rot + random.randint(-10, 10)
