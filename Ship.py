@@ -196,3 +196,10 @@ class HeavySat(Satelite):
             GW_utils.blitRotateCenter(screen, self.imageList["with shield"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
         else:
             GW_utils.blitRotateCenter(screen, self.imageList["no shield"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
+
+class EnemyShip(Enemy):
+    def __init__(self, x, y, vx, vy, IL.OTHER_SHIP ,rot):
+        super().__init__(x, y, vx, vy, rot)
+        self.points = 1000
+        self.stateTimer = 0
+        self.zap_sound = SL.ENEMY_SHIP_SHOOT
