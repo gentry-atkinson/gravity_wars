@@ -166,7 +166,7 @@ class Rock(Enemy):
 class Satelite(Enemy):
     def __init__(self, x, y, vx, vy, rot):
         super().__init__(x, y, vx, vy, IL.SAT, rot)
-        self.lastShot = 0
+        self.lastShot = random.randint(0,100)
         self.zap_sound = SL.SAT_SHOOT
         self.points = 100
         self.SHOT_RATE = 1500
