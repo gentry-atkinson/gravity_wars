@@ -81,9 +81,9 @@ class Player(Ship):
         #     self.vy += math.cos(self.rot) * GW_globals.THRUST
         #     self.vx += math.sin(self.rot) * GW_globals.THRUST
         if keys[pygame.K_LEFT]:
-            self.rot += GW_globals.TURN_SPEED
+            self.rot += GW_globals.TURN_SPEED*dt/1000
         if keys[pygame.K_RIGHT]:
-            self.rot -= GW_globals.TURN_SPEED
+            self.rot -= GW_globals.TURN_SPEED*dt/1000
         if keys[pygame.K_SPACE]:
             off_x = -math.sin(self.rot*GW_globals.DEG_TO_RAD)*self.get_width() + self.get_width()//2
             off_y = -math.cos(self.rot*GW_globals.DEG_TO_RAD)*self.get_height() + self.get_height()//2
@@ -246,9 +246,9 @@ class EnemyShip(Enemy):
 
         #Turn to face desired direction
         if targetRot < self.rot:
-            self.rot -= GW_globals.TURN_SPEED
+            self.rot -= GW_globals.TURN_SPEED*dt/1000
         else:
-            self.rot += GW_globals.TURN_SPEED
+            self.rot += GW_globals.TURN_SPEED*dt/1000
 
         #Thrust if appropriate
         if (-20 < (self.rot-targetRot) < 20) and self.burn and euc_dist(self.vx, self.vy, 0, 0) < GW_globals.C:
