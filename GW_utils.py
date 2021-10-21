@@ -20,7 +20,7 @@ def directionAtoB(ax, ay, bx, by):
     direction %= 2*math.pi
     return math.degrees(direction)
 
-def check_collisions(ps, projectiles, planet, enemies):
+def check_collisions(ps, projectiles, planet, enemies, particles):
     #Did player hit planet
     ship_rect = ps.icon.get_rect(center=(ps.x + ps.get_width()//2, ps.y+ps.get_height()//2))
     planet_rect = \
@@ -50,7 +50,7 @@ def check_collisions(ps, projectiles, planet, enemies):
             off_x = e_rect.x - p_rect.x
             off_y = e_rect.y - p_rect.y
             if p.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
-                e.die(ps)
+                e.die(particles, ps)
                 p.dead = True
                 #print("Score!")
 
@@ -60,6 +60,5 @@ def check_collisions(ps, projectiles, planet, enemies):
         off_x = e_rect.x - ship_rect.x
         off_y = e_rect.y - ship_rect.y
         if ps.mask.overlap(e.mask, (int(off_x), int(off_y))) != None:
-            e.die(ps)
             ps.dead = True
             #print("Wrecked!")

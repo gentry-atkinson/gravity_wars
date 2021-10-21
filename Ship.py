@@ -110,20 +110,6 @@ class Player(Ship):
             GW_utils.blitRotateCenter(screen, self.imageList["no shield with burn"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
         else:
             GW_utils.blitRotateCenter(screen, self.imageList["no shield no burn"][0 if self.stateTimer < 500 else 1], (self.x, self.y), self.rot)
-        # if self.shield:
-        #     #x offset = 3-8
-        #     off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*5 - 3
-        #     #y offset = 9-14
-        #     off_y = math.cos(self.rot * GW_globals.DEG_TO_RAD)*5 - 12
-        #     screen.blit(IL.SHIELD, (self.x+off_x, self.y+off_y))
-        #
-        # if self.burn:
-        #     # off_x = math.sin(self.rot * GW_globals.DEG_TO_RAD)*self.get_width()
-        #     # off_y = math.cos(self.rot * GW_globals.DEG_TO_RAD)*self.get_height()
-        #     # GW_utils.blitRotateCenter(screen, IL.PLAYER_SHIP_BURN, (self.x+off_x, self.y+off_y), self.rot)
-        #     GW_utils.blitRotateCenter(screen, IL.PLAYER_SHIP_BURN, (self.x, self.y), self.rot)
-        # else:
-        #     GW_utils.blitRotateCenter(screen, self.icon, (self.x, self.y), self.rot)
 
 class Enemy(Ship):
     def __init__(self, x, y, vx, vy, icon, rot):
@@ -131,10 +117,12 @@ class Enemy(Ship):
         self.rot = rot
         self.death_sound = SL.ENEMY_EXPLODE
         self.points = 0
-    def die(self, ps):
+    def die(self, particles, ps):
         self.dead = True
         pygame.mixer.Sound.play(self.death_sound)
         ps.score += self.points
+        for i in range(random.randint(7, 15)):
+            particles.append(Particle(self.x, self.y, random.randint(-100, 100), random.randint(-100, 100)))
 
 
 class Rock(Enemy):
@@ -211,11 +199,11 @@ class HeavySat(Satelite):
         self.stateTimer = 0
         self.imageList = IL.HEAVY_SAT
         self.SHOT_RATE = 1200
-    def die(self, ps):
+    def die(self, particles, ps):
         if self.shield:
             self.shield = False
         else:
-            super().die(ps)
+            super().die(particles, ps)
     def move(self, projectiles, ps, particles, dt):
         super().move(projectiles, ps, particles, dt)
         self.stateTimer = (self.stateTimer + dt) % 1000

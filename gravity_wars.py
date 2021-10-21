@@ -137,7 +137,7 @@ if __name__ == '__main__':
                 p.move(dt)
             for p in particles:
                 p.move(dt)
-            check_collisions(player_ship, projectiles, planet, enemies)
+            check_collisions(player_ship, projectiles, planet, enemies, particles)
             # for e in enemies:
             #     print(type(e), '\t', e.dead)
             enemies = [e for e in enemies if not e.dead]
