@@ -33,7 +33,7 @@ class Laser(Projectile):
     def move(self, dt):
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
-        if self.x < 0 or self.x > GW_globals.WIDTH:
+        if self.x < -100 or self.x > GW_globals.WIDTH+100:
             self.dead = True
-        elif self.y < 0 or self.y > GW_globals.HEIGHT:
+        elif self.y < -100 or self.y > GW_globals.HEIGHT+100:
             self.dead = True
