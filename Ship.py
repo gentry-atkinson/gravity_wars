@@ -32,14 +32,9 @@ class Ship:
         return self.icon.get_height()
     def fall(self):
         dist = euc_dist(self.x, self.y, GW_globals.WIDTH/2, GW_globals.HEIGHT/2)
-        if self.x > GW_globals.WIDTH/2:
-            self.vx -= GW_globals.GRAVITY/dist
-        else:
-            self.vx += GW_globals.GRAVITY/dist
-        if self.y > GW_globals.HEIGHT/2:
-            self.vy -= GW_globals.GRAVITY/dist
-        else:
-            self.vy += GW_globals.GRAVITY/dist
+        direction = GW_utils.directionAtoB(self.x, self.y, GW_globals.WIDTH/2, GW_globals.HEIGHT/2)
+        self.vx += -math.sin(direction*GW_globals.DEG_TO_RAD)*GW_globals.GRAVITY/dist
+        self.vy += -math.cos(direction*GW_globals.DEG_TO_RAD)*GW_globals.GRAVITY/dist
 
 class Player(Ship):
     def __init__(self, x, y, vx, vy, rot):

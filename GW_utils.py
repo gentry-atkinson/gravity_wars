@@ -1,6 +1,10 @@
 import pygame
 import math
 
+def euc_dist (x1, y1, x2, y2):
+    dist = math.sqrt((x1-x2)**2 + (y1-y2)**2)
+    return 1 if dist<1 else dist
+
 def rot_center(image, angle, x, y):
     rotated_image = pygame.transform.rotate(image, angle)
     new_rect = rotated_image.get_rect(center = image.get_rect(center = (x, y)).center)
