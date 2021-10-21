@@ -42,7 +42,7 @@ class Ship:
             self.vy += GW_globals.GRAVITY/dist
 
 class Player(Ship):
-    def __init__(self, x, y, vx, vy):
+    def __init__(self, x, y, vx, vy, rot):
         super().__init__(x, y, vx, vy, IL.PLAYER_SHIP['no shield no burn'][0])
         self.imageList = IL.PLAYER_SHIP
         self.lastShot = 0
@@ -53,6 +53,7 @@ class Player(Ship):
         self.shield = True
         self.burn = True
         self.stateTimer = 0
+        self.rot = rot
 
     def move(self, keys, projectiles, particles, dt):
         self.fall()
@@ -150,6 +151,16 @@ class Rock(Enemy):
         self.x += self.vx * dt/1000
         self.y += self.vy * dt/1000
         self.rot += 1
+
+        if self.vx > GW_globals.C/2:
+            self.vx = GW_globals.C/2
+        elif self.vx < -GW_globals.C/2:
+            self.vx = -GW_globals.C/2
+        if self.vy > GW_globals.C/2:
+            self.vy = GW_globals.C/2
+        elif self.vy < -GW_globals.C/2:
+            self.vy = -GW_globals.C/2
+
         if self.x > 900:
             self.x = 899
             self.vx = -self.vx

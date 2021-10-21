@@ -101,7 +101,7 @@ if __name__ == '__main__':
                 static_images['HIGH'] = []
                 static_images['DRIFT_LABEL'] = []
                 SL.music_on()
-                player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100)
+                player_ship = Player(GW_globals.WIDTH//4, GW_globals.WIDTH//4, 100, -100, 280)
                 planet = Planet(IL.PLANET)
                 enemies = lev_list[level-1].copy()
                 particles = []
@@ -158,6 +158,7 @@ if __name__ == '__main__':
             player_ship.y =  GW_globals.HEIGHT//4
             player_ship.vx = 100
             player_ship.vy = -100
+            player_ship.rot = 280
             draw_screen(SCREEN, static_images, None, None, planet, None, None)
             pygame.time.wait(1000)
             static_images['LEVEL'] = [game_label, (GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT//40)]
@@ -179,12 +180,12 @@ if __name__ == '__main__':
                         with open('high_score.txt', 'w') as score_file:
                             score_file.write(str(high_score))
 
-                score_label = main_font.render(f'Final Score: {player_ship.score}', 1, (255, 255, 255))
-                high_label = main_font.render(f'High Score: {high_score}', 1, (255, 255, 255))
+                score_label = main_font.render(f'Final Score:  {player_ship.score}', 1, (255, 255, 255))
+                high_label =  main_font.render(f'High Score:   {high_score}', 1, (255, 255, 255))
                 if level > len(lev_list):
                     game_label = main_font.render('You Have Defended Zyrth!', 1, (255, 255, 255))
                 else:
-                    game_label = main_font.render('You Have Died...', 1, (255, 255, 255))
+                    game_label = main_font.render('You Have Died on Level {}'.format(level), 1, (255, 255, 255))
                 static_images['LEVEL'] = [game_label, (20, GW_globals.HEIGHT * 0.1)]
                 static_images['SCORE'] = [score_label, (20, GW_globals.HEIGHT * 0.5)]
                 static_images['HIGH'] = [high_label, (20, GW_globals.HEIGHT * 0.7)]
