@@ -159,6 +159,7 @@ if __name__ == '__main__':
             player_ship.vx = 100
             player_ship.vy = -100
             player_ship.rot = 280
+            player_ship.shield = True
             draw_screen(SCREEN, static_images, None, None, planet, None, None)
             pygame.time.wait(1000)
             static_images['LEVEL'] = [game_label, (GW_globals.WIDTH//2 - 120, GW_globals.HEIGHT//40)]
@@ -198,6 +199,7 @@ if __name__ == '__main__':
                 planet = None
                 enemies = None
                 particles = None
+                projectiles = None
                 screen_changed = False
                 draw_screen(SCREEN, static_images, player_ship, projectiles, planet, enemies, particles)
                 keys = []
