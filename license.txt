@@ -1,0 +1,11 @@
+Defender of Zyrth!
+
+Copyright (C) Gentry Atkinson - All Rights Reserved
+Unauthorized copying of this file, via any medium is strictly prohibited
+Proprietary and confidential
+Written by Gentry Atkinson <singlestarsw@gmail.com>, October 2021
+
+This software is being free of charge for unlimited use but should not be redistributed.
+
+All assets in this project are proprietary and protected. If you would like to
+use them, they are available at the URL listed in asset_list.txt.
